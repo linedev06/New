@@ -10,6 +10,52 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
  </head>
+ <style>
+    .lightbox .lb-prev, .lightbox .lb-next {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      height: 50px;
+      width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+    }
+  
+    .lightbox .lb-prev {
+      left: 20px;
+    }
+  
+    .lightbox .lb-next {
+      right: 20px;
+    }
+  
+    .lightbox .lb-prev:hover, .lightbox .lb-next:hover {
+      background: rgba(255, 255, 255, 0.7);
+      color: black;
+    }
+  
+    .lightbox .lb-close {
+      color: white;
+      font-size: 24px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+  
+    .lightbox .lb-close:hover {
+      color: red;
+    }
+  </style>
+  
  <body class="font-roboto bg-gray-100">
   <header class="bg-white shadow-md">
    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -38,44 +84,68 @@
     <h2 class="text-xl font-bold text-gray-800 mb-4">
      Uma confortável casa
     </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-     <div class="bg-white shadow-md rounded-lg overflow-hidden">
-      <img alt="A beautiful two-story house with a well-maintained garden and a two-car garage" class="w-full h-64 object-cover" height="400" src="Iw.jpg" width="600"/>
-     </div>
-     <div class="bg-white shadow-md rounded-lg overflow-hidden">
-      <img alt="A spacious living room with modern furniture and a large window" class="w-full h-64 object-cover" height="400" src="Iw2.jpg" width="600"/>
-     </div>
-     <div class="bg-white shadow-md rounded-lg overflow-hidden">
-      <img alt="A modern kitchen with stainless steel appliances and a large island" class="w-full h-64 object-cover" height="400" src="Iw3.jpg" width="600"/>
-     </div>
-     <div class="bg-white shadow-md rounded-lg overflow-hidden">
-      <img alt="A cozy bedroom with a large bed and a window with a garden view" class="w-full h-64 object-cover" height="400" src="Iw4.jpg" width="600"/>
-     </div>
-     <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <img alt="A cozy bedroom with a large bed and a window with a garden view" class="w-full h-64 object-cover" height="400" src="Iw5.jpg" width="600"/>
-       </div>
-       <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <img alt="A cozy bedroom with a large bed and a window with a garden view" class="w-full h-64 object-cover" height="400" src="Iw6.jpg" width="600"/>
-       </div>
-       <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <img alt="A cozy bedroom with a large bed and a window with a garden view" class="w-full h-64 object-cover" height="400" src="Iw7.jpg" width="600"/>
-       </div>
-       <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <img alt="A cozy bedroom with a large bed and a window with a garden view" class="w-full h-64 object-cover" height="400" src="Iw8.jpg" width="600"/>
-       </div>
-    </div>
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
+    
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <a href="Iw.jpg" data-lightbox="gallery" data-title="A beautiful two-story house with a well-maintained garden and a two-car garage">
+              <img alt="A beautiful two-story house with a well-maintained garden and a two-car garage" class="w-full h-64 object-cover" src="Iw.jpg" />
+            </a>
+          </div>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <a href="Iw2.jpg" data-lightbox="gallery" data-title="A spacious living room with modern furniture and a large window">
+              <img alt="A spacious living room with modern furniture and a large window" class="w-full h-64 object-cover" src="Iw2.jpg" />
+            </a>
+          </div>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <a href="Iw3.jpg" data-lightbox="gallery" data-title="A modern kitchen with stainless steel appliances and a large island">
+              <img alt="A modern kitchen with stainless steel appliances and a large island" class="w-full h-64 object-cover" src="Iw3.jpg" />
+            </a>
+          </div>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <a href="Iw4.jpg" data-lightbox="gallery" data-title="A cozy bedroom with a large bed and a window with a garden view">
+              <img alt="A cozy bedroom with a large bed and a window with a garden view" class="w-full h-64 object-cover" src="Iw4.jpg" />
+            </a>
+          </div>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <a href="Iw5.jpg" data-lightbox="gallery" data-title="Another beautiful view of the bedroom">
+              <img alt="Another beautiful view of the bedroom" class="w-full h-64 object-cover" src="Iw5.jpg" />
+            </a>
+          </div>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <a href="Iw6.jpg" data-lightbox="gallery" data-title="Cozy corner with great lighting">
+              <img alt="Cozy corner with great lighting" class="w-full h-64 object-cover" src="Iw6.jpg" />
+            </a>
+          </div>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <a href="Iw7.jpg" data-lightbox="gallery" data-title="Relaxing atmosphere in the living room">
+              <img alt="Relaxing atmosphere in the living room" class="w-full h-64 object-cover" src="Iw7.jpg" />
+            </a>
+          </div>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <a href="Iw8.jpg" data-lightbox="gallery" data-title="View of the garden from the room">
+              <img alt="View of the garden from the room" class="w-full h-64 object-cover" src="Iw8.jpg" />
+            </a>
+          </div>
+        </div>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    
+      
     <div class="bg-white shadow-md rounded-lg overflow-hidden mt-6 p-4">
      <h3 class="text-lg font-bold text-gray-800">
       Descrição
      </h3>
      <p class="text-gray-600 mt-4">
       
-Aluga-se casa com piscina em Itaoca, Mongaguá, lado morro, ideal para temporada, finais de semana e feriados. 
+Aluga-se casa com piscina em Itaoca, Mongaguá, lado morro, ideal para temporada, finais de semana e feriados. Com capacidade máxima até 15 pessoas. 
      </p>
      <p class="text-gray-600 mt-4">
         Localização privilegiada, próxima à pista, padaria, minimercados e passarela, garantindo fácil acesso e comodidade. Ambiente confortável e perfeito para momentos de lazer.
      </p>
-     <p class="text-gray-600 mt-4">A casa possui dois quartos, dois banheiros e uma ampla garagem com capacidade para até cinco carros.</p>
+     <p class="text-gray-600 mt-4">A casa possui dois quartos, sala, cozinha, dois banheiros e uma ampla garagem com capacidade para até cinco carros.</p>
      <p class="text-gray-800 font-bold mt-4">
       Valor entrar em contato.
      </p>
