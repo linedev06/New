@@ -227,14 +227,14 @@ transition:background .2s,opacity .3s;opacity:.8;
 LANGUAGE DROPDOWN
 ========================================== */
 .lang-dropdown{
-position:absolute;top:calc(100% + 8px);right:0;
+position:fixed;
 background:#fff;
 border:1px solid var(–mid);
 box-shadow:0 12px 40px rgba(0,0,0,.12);
 min-width:160px;
 opacity:0;visibility:hidden;transform:translateY(-8px);
 transition:all .25s var(–ease);
-z-index:300;
+z-index:600;
 }
 .lang-dropdown.open{opacity:1;visibility:visible;transform:translateY(0)}
 .lang-item{
@@ -341,17 +341,17 @@ transition:box-shadow .3s;
 .navbar.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
 .nav-inner{
 height:100%;max-width:1440px;margin:0 auto;
-padding:0 28px;
+padding:0 20px;
 display:flex;align-items:center;justify-content:space-between;
 gap:16px;position:relative;
 }
 
 /* left */
-.nav-left{display:flex;align-items:center;gap:12px}
+.nav-left{display:flex;align-items:center;gap:12px;position:relative;z-index:2}
 .nav-menu-txt{
 font-size:11px;font-weight:700;letter-spacing:.14em;
 text-transform:uppercase;color:#333;
-display:none;/* desktop only */
+display:none;
 }
 .hamburger{
 background:none;border:none;
@@ -375,13 +375,17 @@ transition:all .35s var(–ease);transform-origin:center;
 position:absolute;left:50%;transform:translateX(-50%);
 font-size:19px;font-weight:400;letter-spacing:4px;
 color:var(–or);text-transform:uppercase;
-white-space:nowrap;
+white-space:nowrap;pointer-events:none;
+z-index:0;
 transition:opacity .2s;
+}
+@media(max-width:480px){
+.nav-logo{font-size:15px;letter-spacing:3px}
 }
 
 /* desktop search bar */
 .nav-searchbar{
-display:none;/* desktop */
+display:none;
 align-items:center;
 border:1px solid #d0ccc6;
 overflow:hidden;
@@ -404,7 +408,7 @@ white-space:nowrap;transition:background .2s;
 .nav-searchbar button:hover{background:var(–or2)}
 
 /* right */
-.nav-right{display:flex;align-items:center;gap:10px}
+.nav-right{display:flex;align-items:center;gap:10px;position:relative;z-index:2}
 .nav-icon{
 background:none;border:none;
 width:40px;height:40px;
@@ -416,7 +420,7 @@ position:relative;
 .nav-icon:hover{background:var(–gray);color:var(–or)}
 .nav-lang-wrap{position:relative}
 .nav-lang-btn{
-display:none;/* desktop */
+display:none;
 align-items:center;gap:6px;
 background:none;border:none;
 font-size:11px;font-weight:700;letter-spacing:.1em;
@@ -451,7 +455,6 @@ radial-gradient(ellipse at 20% 110%,rgba(255,120,0,.14) 0%,transparent 40%),
 linear-gradient(162deg,#07071a 0%,#0e0e28 35%,#180e05 100%);
 overflow:hidden;
 }
-/* city-light texture */
 .hero-photo::before{
 content:’’;position:absolute;inset:0;
 background-image:
@@ -459,7 +462,6 @@ repeating-linear-gradient(162deg,transparent 0,transparent 2px,rgba(255,190,80,.
 repeating-linear-gradient(158deg,transparent 0,transparent 5px,rgba(255,130,40,.025) 5px,rgba(255,130,40,.025) 6px);
 z-index:1;
 }
-/* warm glow bottom */
 .hero-photo::after{
 content:’’;position:absolute;
 bottom:-60px;left:10%;
@@ -525,12 +527,13 @@ background:var(–gray);
 display:flex;flex-direction:column;
 overflow:hidden;
 }
-.hero-slides{flex:1;position:relative;overflow:hidden}
+.hero-slides{flex:1;position:relative;overflow:hidden;min-height:280px}
 .hero-slide{
 position:absolute;inset:0;
 padding:clamp(20px,4%,36px) clamp(20px,5%,40px) 20px;
 opacity:0;transition:opacity .6s var(–ease);
 pointer-events:none;
+background:var(–gray);
 }
 .hero-slide.active{opacity:1;pointer-events:all}
 .slide-lbl{
@@ -1001,7 +1004,7 @@ background:#1a1a1a;color:#fff;
 padding:12px 24px;font-size:13px;font-weight:500;
 border-left:3px solid var(–or);
 opacity:0;transition:all .3s var(–ease);
-z-index:600;white-space:nowrap;pointer-events:none;
+z-index:700;white-space:nowrap;pointer-events:none;
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -1014,6 +1017,9 @@ RESPONSIVE BREAKPOINTS
 .nav-lang-btn{display:flex}
 .mobile-only{display:none!important}
 }
+@media(max-width:899px){
+.nav-lang-wrap{display:none}
+}
 @media(max-width:1200px){
 .hl-grid{grid-template-columns:repeat(2,1fr)}
 .pub-grid{grid-template-columns:repeat(2,1fr)}
@@ -1024,10 +1030,12 @@ RESPONSIVE BREAKPOINTS
 @media(max-width:899px){
 :root{–nav-h:58px}
 .hero{flex-direction:column;min-height:auto}
-.hero-photo{flex:none;height:55vw;min-height:240px}
-.hero-news{min-height:280px}
+.hero-photo{flex:none;height:56vw;min-height:260px;width:100%}
+.hero-news{min-height:320px;width:100%;background:#F4F4F2}
+.hero-slides{min-height:260px}
 .hero-tagline h1{font-size:clamp(18px,5vw,26px)}
-.hero-tri{border-width:0 80px 160px 0}
+.hero-tri{border-width:0 70px 140px 0}
+.hero-circle{width:240px;height:240px;top:-20px;left:-30px}
 .essencia-grid{grid-template-columns:1fr}
 .essencia-card{border-right:none;border-bottom:1px solid var(–mid)}
 .essencia-card:last-child{border-bottom:none}
@@ -1088,9 +1096,9 @@ RESPONSIVE BREAKPOINTS
 <!-- == LANGUAGE DROPDOWN (desktop) == -->
 
 <div class="lang-dropdown" id="langDropdown">
-  <div class="lang-item active" onclick="setLang('PT','Português')"><span class="lang-flag">BR</span> Português</div>
-  <div class="lang-item" onclick="setLang('EN','English')"><span class="lang-flag">US</span> English</div>
-  <div class="lang-item" onclick="setLang('ES','Español')"><span class="lang-flag">ES</span> Español</div>
+  <div class="lang-item active" onclick="setLang('PT','Português')"><span class="lang-flag">&#127463;&#127479;</span> Português</div>
+  <div class="lang-item" onclick="setLang('EN','English')"><span class="lang-flag">&#127482;&#127480;</span> English</div>
+  <div class="lang-item" onclick="setLang('ES','Español')"><span class="lang-flag">&#127466;&#127480;</span> Español</div>
 </div>
 
 <!-- == MENU OVERLAY == -->
@@ -1290,7 +1298,7 @@ RESPONSIVE BREAKPOINTS
       <div class="area-row"><span class="area-name">Família e Sucessões</span><span class="area-arr">&#8250;</span></div>
       <div class="area-row"><span class="area-name">Imobiliário e Urbanismo</span><span class="area-arr">&#8250;</span></div>
     </div>
-    <div style="margin-top:32px" class="reveal" style="transition-delay:.2s">
+    <div class="reveal" style="margin-top:32px;transition-delay:.2s">
       <a class="btn-more" href="#">Ver todas as 40+ áreas &#8250;</a>
     </div>
   </div>
@@ -1307,7 +1315,7 @@ RESPONSIVE BREAKPOINTS
     <div class="hl-grid">
       <div class="hl-card reveal">
         <div class="hl-tag">Relatório Integrado</div>
-        <div class="hl-title">Pulso -- 2ª edição: transparência e impacto em 2025</div>
+        <div class="hl-title">Pulso &mdash; 2ª edição: transparência e impacto em 2025</div>
         <p class="hl-body">Reafirmamos nosso compromisso com a transparência junto a clientes, parceiros e à sociedade civil.</p>
         <a class="hl-link" href="#">Acessar relatório &#8250;</a>
       </div>
@@ -1427,9 +1435,9 @@ RESPONSIVE BREAKPOINTS
       <h2 class="sec-title">Nossos <em>Escritórios</em></h2>
     </div>
     <div class="offices-grid">
-      <div class="off-card reveal"><div class="off-city">São Paulo</div><div class="off-country">Brasil -- Sede</div><div class="off-addr">Av. Brigadeiro Faria Lima, 4100<br>6º andar -- Itaim Bibi<br>SP 04538-132</div></div>
+      <div class="off-card reveal"><div class="off-city">São Paulo</div><div class="off-country">Brasil &mdash; Sede</div><div class="off-addr">Av. Brigadeiro Faria Lima, 4100<br>6º andar &mdash; Itaim Bibi<br>SP 04538-132</div></div>
       <div class="off-card reveal" style="transition-delay:.07s"><div class="off-city">Rio de Janeiro</div><div class="off-country">Brasil</div><div class="off-addr">Praia de Botafogo, 228<br>Torre B, 10º andar<br>RJ 22250-145</div></div>
-      <div class="off-card reveal" style="transition-delay:.14s"><div class="off-city">Brasília</div><div class="off-country">Brasil</div><div class="off-addr">SCS Q. 09 Lote C<br>Bloco B -- Sala 1205<br>Ed. Parque Cidade, DF</div></div>
+      <div class="off-card reveal" style="transition-delay:.14s"><div class="off-city">Brasília</div><div class="off-country">Brasil</div><div class="off-addr">SCS Q. 09 Lote C<br>Bloco B &mdash; Sala 1205<br>Ed. Parque Cidade, DF</div></div>
       <div class="off-card reveal" style="transition-delay:.21s"><div class="off-city">New York</div><div class="off-country">Estados Unidos</div><div class="off-addr">1114 Avenue of the Americas<br>Suite 2000<br>NY 10036</div></div>
       <div class="off-card reveal" style="transition-delay:.28s"><div class="off-city">London</div><div class="off-country">Reino Unido</div><div class="off-addr">One Canada Square<br>Level 32, Canary Wharf<br>E14 5AB</div></div>
     </div>
@@ -1493,7 +1501,7 @@ RESPONSIVE BREAKPOINTS
   </div>
 </footer>
 
-<!-- == TTS TAB (aba lateral) == -->
+<!-- == TTS TAB == -->
 
 <button class="tts-tab" id="ttsTab" aria-label="Acessibilidade de voz">VOZ</button>
 
@@ -1598,7 +1606,6 @@ RESPONSIVE BREAKPOINTS
   hamburger.addEventListener('click', function(){ menuOpen ? closeMenuFn() : openMenu(); });
   menuClose.addEventListener('click', closeMenuFn);
 
-  /* close menu on nav link click */
   menuOverlay.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', closeMenuFn);
   });
@@ -1627,7 +1634,6 @@ RESPONSIVE BREAKPOINTS
     if(e.target === searchOverlay) closeSearch();
   });
 
-  /* ESC key */
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape'){
       if(searchOverlay.classList.contains('open')) closeSearch();
@@ -1650,7 +1656,6 @@ RESPONSIVE BREAKPOINTS
     searchInput.focus();
   };
 
-  /* desktop searchbar */
   window.triggerDesktopSearch = function(){
     var q = document.getElementById('desktopSearchInput').value.trim();
     if(!q){ openSearch(); return; }
@@ -1672,7 +1677,6 @@ RESPONSIVE BREAKPOINTS
     langDropdown.classList.add('open');
     langBtn.classList.add('open');
     langBtn.setAttribute('aria-expanded','true');
-    /* position dropdown under the button */
     var rect = langBtn.getBoundingClientRect();
     langDropdown.style.top = (rect.bottom + 8) + 'px';
     langDropdown.style.right = (window.innerWidth - rect.right) + 'px';
@@ -1689,7 +1693,6 @@ RESPONSIVE BREAKPOINTS
     langOpen ? closeLang() : openLang();
   });
   langBtnMobile.addEventListener('click', function(){
-    /* on mobile open the menu overlay and scroll to lang buttons */
     openMenu();
     setTimeout(function(){
       var el = menuOverlay.querySelector('.menu-foot');
@@ -1699,20 +1702,6 @@ RESPONSIVE BREAKPOINTS
   document.addEventListener('click', function(e){
     if(langOpen && !langDropdown.contains(e.target) && e.target !== langBtn){ closeLang(); }
   });
-
-  window.setLang = function(code, label){
-    /* update desktop label */
-    langLabel.textContent = 'IDIOMA \u00a0 ' + label.toUpperCase();
-    /* update active state */
-    document.querySelectorAll('.lang-item').forEach(function(el){
-      el.classList[el.textContent.trim().indexOf(label) !== -1 ? 'add' : 'remove']('active');
-    });
-    document.querySelectorAll('.menu-lang-btn').forEach(function(btn){
-      btn.classList[btn.textContent.trim() === code ? 'add' : 'remove']('active');
-    });
-    closeLang();
-    showToast('Idioma alterado para ' + label);
-  };
 
   /* -- Newsletter -- */
   window.handleNewsletter = function(e){
@@ -1745,7 +1734,6 @@ RESPONSIVE BREAKPOINTS
     dot.addEventListener('click', function(){ goTo(i); resetAuto(); });
   });
 
-  /* touch/swipe */
   var sx = 0;
   var heroSlides = document.getElementById('heroSlides');
   heroSlides.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
@@ -1817,12 +1805,9 @@ RESPONSIVE BREAKPOINTS
     if(!t) return;
     currentLangCode = code;
 
-    /* navbar logo stays PROMETEUS */
-    /* hero title */
     var heroH1 = document.querySelector('.hero-tagline h1');
     if(heroH1) heroH1.textContent = t.heroTitle;
 
-    /* menu nav links */
     var navLinks = document.querySelectorAll('.menu-nav ul li a');
     navLinks.forEach(function(a,i){
       var arr = a.querySelector('.arr');
@@ -1830,7 +1815,6 @@ RESPONSIVE BREAKPOINTS
       if(!arr){ var s=document.createElement('span');s.className='arr';s.innerHTML='&#8250;';a.appendChild(s); }
     });
 
-    /* newsletter bar */
     var nlH3 = document.querySelector('.nl-text h3');
     var nlP  = document.querySelector('.nl-text p');
     var nlBtn = document.querySelector('.nl-btn');
@@ -1838,7 +1822,6 @@ RESPONSIVE BREAKPOINTS
     if(nlP)  nlP.textContent  = t.nlDesc;
     if(nlBtn) nlBtn.textContent = t.nlBtn;
 
-    /* essencia cards */
     var essHeads = document.querySelectorAll('.essencia-head');
     var essBodies = document.querySelectorAll('.essencia-body');
     essHeads.forEach(function(el,i){
@@ -1850,7 +1833,6 @@ RESPONSIVE BREAKPOINTS
     });
     essBodies.forEach(function(el,i){ if(t.essBody[i]) el.textContent=t.essBody[i]; });
 
-    /* areas title + intro */
     var arTit = document.querySelector('.areas-title');
     var arInt = document.querySelector('.areas-intro');
     if(arTit) arTit.textContent = t.areasTitle;
@@ -1858,7 +1840,6 @@ RESPONSIVE BREAKPOINTS
       arInt.innerHTML = t.areasIntro.replace('full-service','<em>full-service</em>');
     }
 
-    /* section titles with em */
     var profTit = document.querySelector('#profissionais .sec-title');
     if(profTit){
       var parts = t.profTitle.split(' ');
@@ -1870,7 +1851,6 @@ RESPONSIVE BREAKPOINTS
       if(half.length===2) pubTit.innerHTML = half[0]+'&amp; <em>'+half[1].trim()+'</em>';
     }
 
-    /* report section */
     var repTit = document.querySelector('.report-title');
     var repBod = document.querySelector('.report-body');
     var repBtn = document.querySelector('.btn-white');
@@ -1878,19 +1858,15 @@ RESPONSIVE BREAKPOINTS
     if(repBod) repBod.textContent = t.reportBody;
     if(repBtn) repBtn.childNodes[0].textContent = t.reportBtn;
 
-    /* footer about */
     var ftAbout = document.querySelector('.ft-about');
     if(ftAbout) ftAbout.textContent = t.footAbout;
 
-    /* search placeholder */
     var sInput = document.getElementById('searchInput');
     if(sInput) sInput.placeholder = t.searchPlaceholder;
 
-    /* TTS language select sync */
     var ttsLangSel = document.getElementById('ttsLangSelect');
     if(ttsLangSel) ttsLangSel.value = t.lang;
 
-    /* html lang attr */
     document.documentElement.lang = t.lang;
   }
 
@@ -1899,10 +1875,8 @@ RESPONSIVE BREAKPOINTS
     var resolvedCode = codeMap[label] || code.toLowerCase();
     applyTranslation(resolvedCode);
 
-    /* update desktop label */
     document.getElementById('langLabel').textContent = 'IDIOMA \u00a0 ' + label.toUpperCase();
 
-    /* active states */
     document.querySelectorAll('.lang-item').forEach(function(el){
       var txt = el.textContent.trim();
       el.classList[txt.indexOf(label)!==-1?'add':'remove']('active');
@@ -1918,26 +1892,26 @@ RESPONSIVE BREAKPOINTS
   /* ==========================================
      TTS -- WEB SPEECH API
   ========================================== */
-  var ttsPanel   = document.getElementById('ttsPanel');
-  var ttsTab     = document.getElementById('ttsTab');
+  var ttsPanel      = document.getElementById('ttsPanel');
+  var ttsTab        = document.getElementById('ttsTab');
   var ttsPanelClose = document.getElementById('ttsPanelClose');
-  var ttsVoiceSel = document.getElementById('ttsVoiceSelect');
-  var ttsLangSel  = document.getElementById('ttsLangSelect');
-  var ttsRateRange = document.getElementById('ttsRate');
-  var ttsPitchRange= document.getElementById('ttsPitch');
-  var ttsRateVal  = document.getElementById('ttsRateVal');
-  var ttsPitchVal = document.getElementById('ttsPitchVal');
-  var ttsStatus   = document.getElementById('ttsStatus');
-  var ttsTestBtn  = document.getElementById('ttsTestBtn');
-  var ttsStopBtn  = document.getElementById('ttsStopBtn');
-  var ttsVoiceLabel= document.getElementById('ttsVoiceLabel');
+  var ttsVoiceSel   = document.getElementById('ttsVoiceSelect');
+  var ttsLangSel    = document.getElementById('ttsLangSelect');
+  var ttsRateRange  = document.getElementById('ttsRate');
+  var ttsPitchRange = document.getElementById('ttsPitch');
+  var ttsRateVal    = document.getElementById('ttsRateVal');
+  var ttsPitchVal   = document.getElementById('ttsPitchVal');
+  var ttsStatus     = document.getElementById('ttsStatus');
+  var ttsTestBtn    = document.getElementById('ttsTestBtn');
+  var ttsStopBtn    = document.getElementById('ttsStopBtn');
+  var ttsVoiceLabel = document.getElementById('ttsVoiceLabel');
 
-  var ttsEnabled  = false;
-  var synth       = window.speechSynthesis;
-  var allVoices   = [];
-  var ttsLang     = 'pt-BR';
-  var ttsRate     = 1.0;
-  var ttsPitch    = 1.0;
+  var ttsEnabled    = false;
+  var synth         = window.speechSynthesis;
+  var allVoices     = [];
+  var ttsLang       = 'pt-BR';
+  var ttsRate       = 1.0;
+  var ttsPitch      = 1.0;
   var selectedVoice = null;
 
   function loadVoices(){
@@ -2006,7 +1980,6 @@ RESPONSIVE BREAKPOINTS
     ttsTab.classList.remove('hidden');
   }
 
-  /* -- som button: ativa modo auditivo -- */
   var soundBtn = document.getElementById('heroSound');
   soundBtn.addEventListener('click', function(){
     ttsEnabled = !ttsEnabled;
@@ -2028,7 +2001,6 @@ RESPONSIVE BREAKPOINTS
     }
   });
 
-  /* -- tab de abertura -- */
   ttsTab.addEventListener('click', function(){
     ttsEnabled = true;
     document.getElementById('soundIcon').style.opacity = '1';
@@ -2042,7 +2014,6 @@ RESPONSIVE BREAKPOINTS
 
   ttsPanelClose.addEventListener('click', function(){
     closeTtsPanel();
-    /* não desativa TTS ao fechar painel, apenas esconde */
   });
 
   ttsTestBtn.addEventListener('click', function(){
@@ -2059,7 +2030,6 @@ RESPONSIVE BREAKPOINTS
     ttsStatus.textContent = 'Leitura interrompida.';
   });
 
-  /* -- click em texto da página para ler -- */
   var readableSelectors = [
     '.hero-tagline h1','.slide-title','.slide-desc',
     '.essencia-head','.essencia-body',
@@ -2081,14 +2051,13 @@ RESPONSIVE BREAKPOINTS
       e.stopPropagation();
       var text = el.innerText || el.textContent;
       speak(text.trim());
-      /* visual flash */
       el.style.outline = '2px solid #E8820C';
       el.style.outlineOffset = '3px';
       setTimeout(function(){ el.style.outline=''; el.style.outlineOffset=''; }, 1200);
     });
   });
 
-  /* -- Smooth anchor scroll for menu links -- */
+  /* -- Smooth anchor scroll -- */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click', function(e){
       var id = a.getAttribute('href');
