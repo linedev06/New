@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prometeus Advogados</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ══════════════════════════════════════════
+RESET & BASE
+══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+font-family:‘Montserrat’,sans-serif;
+background:#fff;
+color:#1a1a1a;
+overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+button{font-family:‘Montserrat’,sans-serif;cursor:pointer}
+img{display:block;max-width:100%}
+
+/* ══════════════════════════════════════════
+CSS VARIABLES
+══════════════════════════════════════════ */
+:root{
+–or:#E8820C;
+–or2:#f59332;
+–pu:#5B2D8E;
+–pu2:#7B4DB8;
+–gray:#F4F4F2;
+–mid:#DDDBD7;
+–txt:#555;
+–dark:#111;
+–white:#fff;
+–nav-h:64px;
+–ease:cubic-bezier(.4,0,.2,1);
+–ease-out:cubic-bezier(0,.55,.45,1);
+}
+
+/* ══════════════════════════════════════════
+PAGE LOADER
+══════════════════════════════════════════ */
+#loader{
+position:fixed;inset:0;
+background:#fff;
+display:flex;align-items:center;justify-content:center;
+z-index:9999;
+transition:opacity .5s var(–ease), visibility .5s;
+}
+#loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.loader-logo{
+font-size:28px;font-weight:400;letter-spacing:4px;
+color:var(–or);text-transform:uppercase;
+animation:loaderPulse 1.2s ease-in-out infinite;
+}
+@keyframes loaderPulse{0%,100%{opacity:.3;transform:scale(.97)}50%{opacity:1;transform:scale(1)}}
+
+/* ══════════════════════════════════════════
+SEARCH OVERLAY
+══════════════════════════════════════════ */
+.search-overlay{
+position:fixed;inset:0;
+background:rgba(10,10,20,.92);
+backdrop-filter:blur(12px);
+z-index:800;
+display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+opacity:0;visibility:hidden;
+transition:opacity .35s var(–ease),visibility .35s;
+padding:40px 24px;
+}
+.search-overlay.open{opacity:1;visibility:visible}
+.search-overlay-close{
+position:absolute;top:24px;right:28px;
+background:none;border:none;color:rgba(255,255,255,.6);
+font-size:32px;line-height:1;
+transition:color .2s;
+}
+.search-overlay-close:hover{color:#fff}
+.search-overlay-title{
+font-size:12px;font-weight:600;letter-spacing:.15em;
+text-transform:uppercase;color:rgba(255,255,255,.4);
+margin-bottom:24px;
+}
+.search-overlay-form{
+width:100%;max-width:680px;
+display:flex;
+border-bottom:2px solid rgba(255,255,255,.25);
+transition:border-color .3s;
+}
+.search-overlay-form:focus-within{border-color:var(–or)}
+.search-overlay-input{
+flex:1;background:none;border:none;outline:none;
+font-family:‘Montserrat’,sans-serif;
+font-size:clamp(22px,4vw,36px);
+font-weight:300;color:#fff;
+padding:16px 0;
+caret-color:var(–or);
+}
+.search-overlay-input::placeholder{color:rgba(255,255,255,.25)}
+.search-overlay-btn{
+background:none;border:none;color:rgba(255,255,255,.5);
+font-size:24px;padding:0 16px;
+transition:color .2s;
+}
+.search-overlay-btn:hover{color:var(–or)}
+.search-suggestions{
+width:100%;max-width:680px;margin-top:32px;
+display:flex;flex-wrap:wrap;gap:10px;
+}
+.search-sug-label{
+width:100%;font-size:10px;font-weight:600;letter-spacing:.12em;
+text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;
+}
+.search-sug-pill{
+background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+color:rgba(255,255,255,.7);padding:7px 16px;font-size:12px;
+border-radius:20px;cursor:pointer;transition:all .2s;
+}
+.search-sug-pill:hover{background:var(–or);border-color:var(–or);color:#fff}
+
+/* ══════════════════════════════════════════
+TTS PANEL
+══════════════════════════════════════════ */
+.tts-panel{
+position:fixed;right:0;top:50%;
+transform:translateY(-50%) translateX(100%);
+background:#fff;
+border-left:3px solid var(–or);
+box-shadow:-8px 0 40px rgba(0,0,0,.13);
+width:256px;
+z-index:600;
+transition:transform .4s var(–ease);
+}
+.tts-panel.open{transform:translateY(-50%) translateX(0)}
+.tts-head{
+display:flex;align-items:center;justify-content:space-between;
+padding:15px 18px;border-bottom:1px solid #f0eeea;
+}
+.tts-head-title{
+font-size:10px;font-weight:700;letter-spacing:.13em;
+text-transform:uppercase;color:#1a1a1a;
+display:flex;align-items:center;gap:8px;
+}
+.tts-dot{
+width:8px;height:8px;border-radius:50%;background:var(–or);
+animation:ttsBlink 1.8s ease-in-out infinite;
+}
+@keyframes ttsBlink{0%,100%{opacity:.25}50%{opacity:1}}
+.tts-close-btn{
+background:none;border:none;color:#bbb;font-size:19px;
+line-height:1;cursor:pointer;transition:color .2s;padding:2px;
+}
+.tts-close-btn:hover{color:var(–or)}
+.tts-body{padding:18px}
+.tts-row{margin-bottom:16px}
+.tts-row:last-child{margin-bottom:0}
+.tts-lbl{
+font-size:10px;font-weight:700;letter-spacing:.1em;
+text-transform:uppercase;color:#aaa;margin-bottom:7px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.tts-lbl em{font-style:normal;color:var(–or);font-weight:700}
+.tts-select{
+width:100%;border:1px solid var(–mid);
+padding:8px 28px 8px 10px;
+font-family:‘Montserrat’,sans-serif;font-size:12px;
+color:#333;background:#fafaf9;outline:none;
+-webkit-appearance:none;appearance:none;
+background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘10’ height=‘6’%3E%3Cpath d=‘M0 0l5 6 5-6z’ fill=’%23aaa’/%3E%3C/svg%3E”);
+background-repeat:no-repeat;background-position:right 10px center;
+cursor:pointer;transition:border-color .2s;
+}
+.tts-select:focus{border-color:var(–or)}
+.tts-range{
+width:100%;-webkit-appearance:none;appearance:none;
+height:3px;background:var(–mid);outline:none;
+border-radius:2px;cursor:pointer;margin-top:6px;
+}
+.tts-range::-webkit-slider-thumb{
+-webkit-appearance:none;width:15px;height:15px;
+border-radius:50%;background:var(–or);cursor:pointer;
+box-shadow:0 1px 6px rgba(232,130,12,.35);transition:transform .15s;
+}
+.tts-range::-webkit-slider-thumb:hover{transform:scale(1.25)}
+.tts-range::-moz-range-thumb{
+width:15px;height:15px;border-radius:50%;
+background:var(–or);border:none;cursor:pointer;
+}
+.tts-status{
+font-size:11px;color:var(–txt);line-height:1.6;
+padding:10px 12px;background:var(–gray);
+border-left:2px solid var(–or);margin-top:4px;
+min-height:38px;
+}
+.tts-btns{display:flex;gap:6px;margin-top:14px}
+.tts-action{
+flex:1;border:1.5px solid var(–mid);background:#fff;
+padding:9px 0;font-family:‘Montserrat’,sans-serif;
+font-size:10px;font-weight:700;letter-spacing:.08em;
+text-transform:uppercase;color:#555;transition:all .2s;
+}
+.tts-action:hover{border-color:var(–or);color:var(–or)}
+.tts-action.danger{border-color:#ddd;color:#c55}
+.tts-action.danger:hover{background:#c55;border-color:#c55;color:#fff}
+.tts-tab{
+position:fixed;right:0;top:50%;transform:translateY(-50%);
+background:var(–or);color:#fff;border:none;
+border-radius:4px 0 0 4px;
+width:30px;padding:16px 0;
+font-family:‘Montserrat’,sans-serif;
+font-size:9px;font-weight:700;letter-spacing:.09em;
+writing-mode:vertical-rl;text-orientation:mixed;
+cursor:pointer;z-index:599;
+transition:background .2s,opacity .3s;opacity:.8;
+}
+.tts-tab:hover{background:var(–or2);opacity:1}
+.tts-tab.hidden{opacity:0;pointer-events:none}
+
+/* ══════════════════════════════════════════
+LANGUAGE DROPDOWN
+══════════════════════════════════════════ */
+.lang-dropdown{
+position:absolute;top:calc(100% + 8px);right:0;
+background:#fff;
+border:1px solid var(–mid);
+box-shadow:0 12px 40px rgba(0,0,0,.12);
+min-width:160px;
+opacity:0;visibility:hidden;transform:translateY(-8px);
+transition:all .25s var(–ease);
+z-index:300;
+}
+.lang-dropdown.open{opacity:1;visibility:visible;transform:translateY(0)}
+.lang-item{
+display:flex;align-items:center;gap:12px;
+padding:12px 18px;font-size:13px;font-weight:500;
+color:#333;cursor:pointer;transition:background .2s,color .2s;
+border-bottom:1px solid #f0f0f0;
+}
+.lang-item:last-child{border-bottom:none}
+.lang-item:hover{background:var(–gray);color:var(–or)}
+.lang-item.active{color:var(–or);font-weight:600}
+.lang-flag{font-size:18px;line-height:1}
+
+/* ══════════════════════════════════════════
+MENU OVERLAY
+══════════════════════════════════════════ */
+.menu-overlay{
+position:fixed;inset:0;background:#fff;
+z-index:700;
+transform:translateX(-100%);
+transition:transform .45s var(–ease);
+display:grid;grid-template-rows:auto 1fr auto;
+overflow-y:auto;
+}
+.menu-overlay.open{transform:translateX(0)}
+.menu-head{
+display:flex;align-items:center;justify-content:space-between;
+padding:0 28px;
+height:var(–nav-h);
+border-bottom:1px solid #eee;
+}
+.menu-head-logo{
+font-size:18px;font-weight:400;letter-spacing:3px;
+color:var(–or);text-transform:uppercase;
+}
+.menu-close-btn{
+background:none;border:none;
+width:44px;height:44px;
+display:flex;align-items:center;justify-content:center;
+color:#333;font-size:28px;line-height:1;
+transition:color .2s,transform .3s;
+}
+.menu-close-btn:hover{color:var(–or);transform:rotate(90deg)}
+.menu-body{padding:20px 28px}
+.menu-nav ul{list-style:none}
+.menu-nav ul li{
+border-bottom:1px solid #f0eeea;
+transform:translateX(-30px);opacity:0;
+transition:transform .4s var(–ease),opacity .4s;
+}
+.menu-overlay.open .menu-nav ul li{transform:translateX(0);opacity:1}
+.menu-overlay.open .menu-nav ul li:nth-child(1){transition-delay:.05s}
+.menu-overlay.open .menu-nav ul li:nth-child(2){transition-delay:.09s}
+.menu-overlay.open .menu-nav ul li:nth-child(3){transition-delay:.13s}
+.menu-overlay.open .menu-nav ul li:nth-child(4){transition-delay:.17s}
+.menu-overlay.open .menu-nav ul li:nth-child(5){transition-delay:.21s}
+.menu-overlay.open .menu-nav ul li:nth-child(6){transition-delay:.25s}
+.menu-overlay.open .menu-nav ul li:nth-child(7){transition-delay:.29s}
+.menu-overlay.open .menu-nav ul li:nth-child(8){transition-delay:.33s}
+.menu-nav ul li a{
+display:flex;align-items:center;justify-content:space-between;
+padding:18px 4px;
+font-size:20px;font-weight:400;color:#1a1a1a;
+transition:color .2s,padding-left .2s;
+}
+.menu-nav ul li a .arr{color:#ccc;font-size:22px}
+.menu-nav ul li a:hover{color:var(–or);padding-left:8px}
+.menu-nav ul li a:hover .arr{color:var(–or)}
+.menu-foot{
+padding:28px;
+display:flex;align-items:center;justify-content:space-between;
+border-top:1px solid #eee;
+}
+.menu-langs{display:flex;gap:12px}
+.menu-lang-btn{
+background:none;border:1px solid var(–mid);
+padding:8px 16px;font-size:12px;font-weight:600;
+letter-spacing:.08em;text-transform:uppercase;
+color:#555;transition:all .2s;
+}
+.menu-lang-btn:hover,.menu-lang-btn.active{
+background:var(–or);border-color:var(–or);color:#fff;
+}
+.menu-social{display:flex;gap:10px}
+.menu-social a{
+width:36px;height:36px;
+background:var(–gray);
+display:flex;align-items:center;justify-content:center;
+font-size:11px;font-weight:700;color:#555;
+transition:background .2s,color .2s;
+}
+.menu-social a:hover{background:var(–or);color:#fff}
+
+/* ══════════════════════════════════════════
+NAVBAR
+══════════════════════════════════════════ */
+.navbar{
+position:sticky;top:0;z-index:500;
+background:#fff;
+border-bottom:1px solid #e8e6e2;
+height:var(–nav-h);
+transition:box-shadow .3s;
+}
+.navbar.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.nav-inner{
+height:100%;max-width:1440px;margin:0 auto;
+padding:0 28px;
+display:flex;align-items:center;justify-content:space-between;
+gap:16px;position:relative;
+}
+
+/* left */
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-menu-txt{
+font-size:11px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:#333;
+display:none;/* desktop only */
+}
+.hamburger{
+background:none;border:none;
+display:flex;flex-direction:column;justify-content:center;
+gap:5px;padding:6px;
+width:40px;height:40px;
+}
+.hamburger span{
+display:block;height:2px;background:#333;
+transition:all .35s var(–ease);transform-origin:center;
+}
+.hamburger span:nth-child(1){width:22px}
+.hamburger span:nth-child(2){width:16px}
+.hamburger span:nth-child(3){width:22px}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);width:22px}
+.hamburger.open span:nth-child(2){opacity:0;width:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);width:22px}
+
+/* center logo */
+.nav-logo{
+position:absolute;left:50%;transform:translateX(-50%);
+font-size:19px;font-weight:400;letter-spacing:4px;
+color:var(–or);text-transform:uppercase;
+white-space:nowrap;
+transition:opacity .2s;
+}
+
+/* desktop search bar */
+.nav-searchbar{
+display:none;/* desktop */
+align-items:center;
+border:1px solid #d0ccc6;
+overflow:hidden;
+flex:0 0 280px;
+transition:flex-basis .3s,border-color .3s;
+}
+.nav-searchbar:focus-within{flex-basis:360px;border-color:var(–or)}
+.nav-searchbar input{
+flex:1;border:none;outline:none;padding:9px 14px;
+font-family:‘Montserrat’,sans-serif;font-size:13px;
+background:#fafaf9;color:#333;
+}
+.nav-searchbar input::placeholder{color:#aaa}
+.nav-searchbar button{
+background:var(–or);border:none;color:#fff;
+padding:9px 16px;font-size:11px;font-weight:700;
+letter-spacing:.08em;text-transform:uppercase;
+white-space:nowrap;transition:background .2s;
+}
+.nav-searchbar button:hover{background:var(–or2)}
+
+/* right */
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-icon{
+background:none;border:none;
+width:40px;height:40px;
+display:flex;align-items:center;justify-content:center;
+color:#444;border-radius:50%;
+transition:background .2s,color .2s;
+position:relative;
+}
+.nav-icon:hover{background:var(–gray);color:var(–or)}
+.nav-lang-wrap{position:relative}
+.nav-lang-btn{
+display:none;/* desktop */
+align-items:center;gap:6px;
+background:none;border:none;
+font-size:11px;font-weight:700;letter-spacing:.1em;
+text-transform:uppercase;color:#333;
+padding:8px 10px;
+transition:color .2s;
+}
+.nav-lang-btn svg{color:var(–or)}
+.nav-lang-btn:hover{color:var(–or)}
+.nav-lang-btn .chevron{
+font-size:10px;color:#aaa;
+transition:transform .25s;
+}
+.nav-lang-btn.open .chevron{transform:rotate(180deg)}
+
+/* ══════════════════════════════════════════
+HERO
+══════════════════════════════════════════ */
+.hero{
+display:flex;
+min-height:calc(100vh - var(–nav-h));
+overflow:hidden;
+}
+
+/* photo side */
+.hero-photo{
+position:relative;
+flex:0 0 48%;
+background:
+radial-gradient(ellipse at 65% 85%,rgba(255,170,40,.2) 0%,transparent 55%),
+radial-gradient(ellipse at 20% 110%,rgba(255,120,0,.14) 0%,transparent 40%),
+linear-gradient(162deg,#07071a 0%,#0e0e28 35%,#180e05 100%);
+overflow:hidden;
+}
+/* city-light texture */
+.hero-photo::before{
+content:’’;position:absolute;inset:0;
+background-image:
+repeating-linear-gradient(162deg,transparent 0,transparent 2px,rgba(255,190,80,.035) 2px,rgba(255,190,80,.035) 3px),
+repeating-linear-gradient(158deg,transparent 0,transparent 5px,rgba(255,130,40,.025) 5px,rgba(255,130,40,.025) 6px);
+z-index:1;
+}
+/* warm glow bottom */
+.hero-photo::after{
+content:’’;position:absolute;
+bottom:-60px;left:10%;
+width:80%;height:260px;
+background:radial-gradient(ellipse,rgba(232,130,12,.18) 0%,transparent 70%);
+z-index:1;
+animation:glowPulse 4s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{opacity:.6;transform:scaleX(.9)}50%{opacity:1;transform:scaleX(1)}}
+
+.hero-circle{
+position:absolute;
+top:-8%;left:-10%;
+width:clamp(280px,45%,440px);
+height:clamp(280px,45%,440px);
+border:1.5px solid var(–or);border-radius:50%;
+z-index:2;opacity:.8;
+animation:rotateSlow 30s linear infinite;
+}
+@keyframes rotateSlow{to{transform:rotate(360deg)}}
+.hero-circle-inner{
+position:absolute;
+top:15%;left:15%;right:15%;bottom:15%;
+border:1px solid rgba(232,130,12,.3);border-radius:50%;
+}
+
+.hero-tri{
+position:absolute;top:0;right:0;
+width:0;height:0;border-style:solid;
+border-width:0 clamp(100px,18%,160px) clamp(200px,36%,320px) 0;
+border-color:transparent var(–or) transparent transparent;
+opacity:.88;z-index:2;
+}
+
+.hero-sound{
+position:absolute;top:50%;right:0;
+transform:translateY(-50%);
+width:52px;height:52px;
+background:rgba(60,60,60,.85);
+border:none;backdrop-filter:blur(6px);
+display:flex;align-items:center;justify-content:center;
+z-index:5;
+transition:background .2s;
+}
+.hero-sound:hover{background:rgba(90,90,90,.9)}
+.hero-sound.muted .sound-wave{opacity:.4}
+
+.hero-tagline{
+position:absolute;bottom:40px;left:32px;right:80px;z-index:5;
+}
+.hero-tagline h1{
+font-size:clamp(20px,3vw,32px);
+font-weight:400;color:#fff;
+line-height:1.25;
+opacity:0;transform:translateY(20px);
+animation:fadeUp .8s .4s var(–ease-out) forwards;
+}
+
+/* news side */
+.hero-news{
+flex:1;
+background:var(–gray);
+display:flex;flex-direction:column;
+overflow:hidden;
+}
+.hero-slides{flex:1;position:relative;overflow:hidden}
+.hero-slide{
+position:absolute;inset:0;
+padding:clamp(20px,4%,36px) clamp(20px,5%,40px) 20px;
+opacity:0;transition:opacity .6s var(–ease);
+pointer-events:none;
+}
+.hero-slide.active{opacity:1;pointer-events:all}
+.slide-lbl{
+font-size:10px;font-weight:700;letter-spacing:.13em;
+text-transform:uppercase;color:var(–or);margin-bottom:14px;
+display:flex;align-items:center;gap:8px;
+}
+.slide-lbl::before{content:’’;width:20px;height:1.5px;background:var(–or)}
+.slide-title{
+font-size:clamp(16px,2.2vw,22px);
+font-weight:400;color:var(–pu);line-height:1.35;
+margin-bottom:12px;
+}
+.slide-desc{
+font-size:clamp(12px,1.3vw,14px);
+font-weight:400;color:var(–txt);line-height:1.7;
+margin-bottom:18px;
+}
+.slide-tags{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.slide-tags-lbl{font-size:11px;font-weight:500;color:#666}
+.pill{
+border:1.5px solid #bbb;border-radius:20px;
+padding:5px 14px;font-size:12px;color:#555;
+background:transparent;transition:all .2s;
+}
+.pill:hover{border-color:var(–or);color:var(–or)}
+
+.hero-dots-row{
+padding:16px clamp(20px,5%,40px);
+display:flex;align-items:center;justify-content:space-between;
+border-top:1px solid var(–mid);flex-shrink:0;
+}
+.dots{display:flex;gap:8px;align-items:center}
+.dot{
+height:3px;border-radius:2px;background:#c8c4be;
+cursor:pointer;transition:all .35s var(–ease);
+}
+.dot.active{background:var(–or);width:28px}
+.dot:not(.active){width:18px}
+.dot:hover:not(.active){background:var(–or2);width:24px}
+
+.unico{display:flex;align-items:center;gap:8px}
+.unico-logo{font-size:20px;font-style:italic;font-weight:400;color:#1a1a1a}
+.unico-txt{font-size:10px;line-height:1.4;color:#999;max-width:88px}
+
+/* ══════════════════════════════════════════
+NEWSLETTER BAR
+══════════════════════════════════════════ */
+.nl-bar{
+background-color:#5B2D8E;
+padding:24px clamp(20px,5%,60px);
+display:flex;align-items:center;justify-content:space-between;
+gap:24px;flex-wrap:wrap;
+}
+.nl-text h3{
+font-size:18px;font-weight:400;color:var(–or);
+text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;
+}
+.nl-text p{font-size:13px;color:rgba(255,255,255,.82);line-height:1.5}
+.nl-form{
+display:flex;gap:0;flex-shrink:0;overflow:hidden;
+}
+.nl-input{
+border:2px solid rgba(255,255,255,.35);border-right:none;
+background:rgba(255,255,255,.08);
+padding:11px 18px;
+font-family:‘Montserrat’,sans-serif;font-size:13px;
+color:#fff;outline:none;min-width:220px;
+transition:border-color .2s,background .2s;
+}
+.nl-input::placeholder{color:rgba(255,255,255,.4)}
+.nl-input:focus{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.14)}
+.nl-btn{
+background:transparent;border:2px solid rgba(255,255,255,.35);
+color:#fff;padding:11px 24px;
+font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+transition:all .2s;white-space:nowrap;
+}
+.nl-btn:hover{background:#fff;border-color:#fff;color:var(–pu)}
+
+/* ══════════════════════════════════════════
+FADE-IN ANIMATION (scroll)
+══════════════════════════════════════════ */
+.reveal{
+opacity:0;transform:translateY(32px);
+transition:opacity .7s var(–ease-out),transform .7s var(–ease-out);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{
+opacity:0;transform:translateX(-32px);
+transition:opacity .7s var(–ease-out),transform .7s var(–ease-out);
+}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════
+SECTION COMMONS
+══════════════════════════════════════════ */
+.sec{padding:clamp(48px,7vw,80px) 0}
+.wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,60px)}
+.sec-lbl{
+font-size:10px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:var(–or);margin-bottom:10px;
+display:flex;align-items:center;gap:10px;
+}
+.sec-lbl::before{content:’’;width:20px;height:1.5px;background:var(–or)}
+.sec-title{
+font-size:clamp(24px,4vw,40px);font-weight:400;
+color:#1a1a1a;line-height:1.1;margin-bottom:14px;
+}
+.sec-title em{font-style:italic;color:var(–pu)}
+.sec-desc{font-size:14px;font-weight:400;color:var(–txt);line-height:1.75;max-width:600px}
+.btn-more{
+display:inline-flex;align-items:center;gap:8px;
+font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+color:var(–pu);border-bottom:2px solid var(–pu);padding-bottom:3px;
+transition:color .2s,border-color .2s,gap .2s;
+}
+.btn-more:hover{color:var(–or);border-color:var(–or);gap:14px}
+
+/* ══════════════════════════════════════════
+ESSÊNCIA 3-COL
+══════════════════════════════════════════ */
+.essencia-sec{background:var(–gray)}
+.essencia-grid{
+display:grid;grid-template-columns:repeat(3,1fr);
+border-top:1px solid var(–mid);border-bottom:1px solid var(–mid);
+}
+.essencia-card{
+padding:36px 32px;border-right:1px solid var(–mid);
+position:relative;overflow:hidden;
+cursor:pointer;
+transition:background .25s;
+}
+.essencia-card::after{
+content:’’;position:absolute;bottom:0;left:0;
+width:0;height:3px;background:var(–or);
+transition:width .35s var(–ease);
+}
+.essencia-card:hover{background:#eeecec}
+.essencia-card:hover::after{width:100%}
+.essencia-card:last-child{border-right:none}
+.essencia-head{
+display:flex;align-items:center;gap:8px;
+font-size:17px;font-weight:500;color:#1a1a1a;
+margin-bottom:14px;
+}
+.essencia-head .arr{color:var(–or);font-size:18px;transition:transform .2s}
+.essencia-card:hover .arr{transform:translateX(5px)}
+.essencia-body{font-size:13px;font-weight:400;color:var(–txt);line-height:1.75}
+
+/* ══════════════════════════════════════════
+ÁREAS DE ATUAÇÃO
+══════════════════════════════════════════ */
+.areas-title{
+font-size:clamp(28px,4vw,44px);font-weight:400;
+color:#1a1a1a;margin-bottom:14px;
+}
+.areas-intro{
+font-size:14px;font-weight:400;color:var(–txt);
+line-height:1.75;max-width:620px;margin-bottom:44px;
+}
+.areas-intro strong{font-weight:600}
+.areas-intro em{font-style:italic;font-weight:600}
+
+.areas-list{border-top:1px solid var(–mid)}
+.area-row{
+display:flex;align-items:center;justify-content:space-between;
+padding:18px 0;
+border-bottom:1px solid var(–mid);
+cursor:pointer;
+transition:padding-left .2s;
+position:relative;overflow:hidden;
+}
+.area-row::before{
+content:’’;position:absolute;left:0;top:0;bottom:0;
+width:0;background:var(–or);opacity:.06;
+transition:width .3s var(–ease);
+}
+.area-row:hover{padding-left:12px}
+.area-row:hover::before{width:100%}
+.area-row:hover .area-name{color:var(–or)}
+.area-row:hover .area-arr{transform:translateX(6px);color:var(–or)}
+.area-name{font-size:15px;font-weight:400;color:#1a1a1a;transition:color .2s}
+.area-arr{font-size:20px;color:#ccc;transition:transform .2s,color .2s}
+
+/* ══════════════════════════════════════════
+HIGHLIGHTS (purple bg)
+══════════════════════════════════════════ */
+.hl-sec{background-color:#5B2D8E}
+.hl-sec .sec-lbl{color:rgba(255,255,255,.45)}
+.hl-sec .sec-lbl::before{background:rgba(255,255,255,.45)}
+.hl-sec .sec-title{color:#fff}
+.hl-grid{
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:2px;margin-top:40px;
+}
+.hl-card{
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.1);
+padding:30px 26px;cursor:pointer;
+transition:background .25s,transform .25s;
+position:relative;overflow:hidden;
+}
+.hl-card::before{
+content:’’;position:absolute;bottom:0;left:0;
+width:0;height:2px;background:var(–or);
+transition:width .35s var(–ease);
+}
+.hl-card:hover{background:rgba(255,255,255,.12);transform:translateY(-4px)}
+.hl-card:hover::before{width:100%}
+.hl-tag{
+font-size:10px;font-weight:700;letter-spacing:.12em;
+text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:12px;
+}
+.hl-title{
+font-size:16px;font-weight:400;color:#fff;
+line-height:1.4;margin-bottom:10px;
+}
+.hl-body{font-size:13px;font-weight:400;color:rgba(255,255,255,.6);line-height:1.7}
+.hl-link{
+display:inline-flex;align-items:center;gap:6px;
+margin-top:18px;
+font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+color:var(–or);transition:gap .2s;
+}
+.hl-link:hover{gap:12px}
+
+/* ══════════════════════════════════════════
+PROFISSIONAIS
+══════════════════════════════════════════ */
+.prof-grid{
+display:grid;grid-template-columns:repeat(4,1fr);
+gap:2px;margin-top:40px;
+}
+.prof-card{
+position:relative;overflow:hidden;
+aspect-ratio:3/4;cursor:pointer;
+}
+.prof-bg{
+position:absolute;inset:0;
+display:flex;align-items:center;justify-content:center;
+transition:transform .5s var(–ease);
+}
+.prof-card:hover .prof-bg{transform:scale(1.06)}
+.prof-card:nth-child(1) .prof-bg{background:linear-gradient(145deg,#dfd9d1,#c8c2ba)}
+.prof-card:nth-child(2) .prof-bg{background:linear-gradient(145deg,#dbd5ec,#c4bcd8)}
+.prof-card:nth-child(3) .prof-bg{background:linear-gradient(145deg,#ddd8ce,#c6c0b4)}
+.prof-card:nth-child(4) .prof-bg{background:linear-gradient(145deg,#d8dfe8,#c2cbd6)}
+.prof-ini{
+font-size:88px;font-weight:300;
+color:rgba(0,0,0,.07);user-select:none;letter-spacing:-4px;
+}
+.prof-info{
+position:absolute;bottom:0;left:0;right:0;
+padding:24px 18px 18px;
+background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%);
+color:#fff;
+transform:translateY(0);transition:transform .3s;
+}
+.prof-name{font-size:15px;font-weight:400;margin-bottom:3px}
+.prof-role{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;opacity:.75}
+.prof-hover{
+position:absolute;inset:0;
+background:rgba(75,43,107,.9);
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+padding:24px;opacity:0;
+transition:opacity .3s;
+}
+.prof-card:hover .prof-hover{opacity:1}
+.ph-area{
+font-size:10px;font-weight:700;letter-spacing:.12em;
+text-transform:uppercase;color:var(–or);margin-bottom:10px;
+}
+.ph-name{
+font-size:20px;font-weight:400;color:#fff;
+text-align:center;margin-bottom:20px;line-height:1.2;
+}
+.ph-btn{
+font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+color:#fff;border:1.5px solid rgba(255,255,255,.5);
+padding:10px 20px;transition:border-color .2s,background .2s;
+}
+.ph-btn:hover{border-color:#fff;background:rgba(255,255,255,.12)}
+
+/* ══════════════════════════════════════════
+PUBLICAÇÕES
+══════════════════════════════════════════ */
+.pub-sec{background:var(–gray)}
+.pub-grid{
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:2px;margin-top:40px;
+}
+.pub-card{
+background:#fff;padding:28px 24px;
+border-bottom:3px solid transparent;
+transition:border-color .2s,transform .25s,box-shadow .25s;
+cursor:pointer;
+}
+.pub-card:hover{border-bottom-color:var(–or);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.pub-cat{
+font-size:10px;font-weight:700;letter-spacing:.12em;
+text-transform:uppercase;color:var(–or);margin-bottom:8px;
+}
+.pub-date{font-size:10px;color:#aaa;margin-bottom:12px}
+.pub-title{
+font-size:15px;font-weight:400;color:#1a1a1a;
+line-height:1.45;margin-bottom:14px;
+transition:color .2s;
+}
+.pub-card:hover .pub-title{color:var(–or)}
+.pub-tags{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ══════════════════════════════════════════
+RELATÓRIO BANNER
+══════════════════════════════════════════ */
+.report-sec{background-color:var(–or);overflow:hidden;position:relative}
+.report-sec::before{
+content:’’;position:absolute;
+top:-40%;right:-10%;
+width:500px;height:500px;
+border:1px solid rgba(255,255,255,.12);border-radius:50%;
+pointer-events:none;
+}
+.report-sec::after{
+content:’’;position:absolute;
+top:-20%;right:5%;
+width:300px;height:300px;
+border:1px solid rgba(255,255,255,.08);border-radius:50%;
+pointer-events:none;
+}
+.report-inner{
+display:grid;grid-template-columns:1fr auto;
+gap:60px;align-items:center;position:relative;z-index:1;
+}
+.report-lbl{
+font-size:10px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:10px;
+}
+.report-title{
+font-size:clamp(28px,4vw,44px);font-weight:400;
+color:#fff;text-transform:uppercase;margin-bottom:14px;
+letter-spacing:.3px;
+}
+.report-body{
+font-size:14px;font-weight:400;color:rgba(255,255,255,.88);
+line-height:1.75;max-width:520px;margin-bottom:30px;
+}
+.btn-white{
+display:inline-flex;align-items:center;gap:8px;
+background:#fff;color:var(–or);
+font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+padding:13px 28px;border:2px solid #fff;
+transition:all .2s;
+}
+.btn-white:hover{background:transparent;color:#fff}
+.report-book{
+width:clamp(140px,14vw,190px);aspect-ratio:3/4;
+background:rgba(255,255,255,.18);
+border:1px solid rgba(255,255,255,.35);
+display:flex;align-items:flex-end;padding:20px;
+box-shadow:16px 16px 0 rgba(0,0,0,.12);
+flex-shrink:0;
+transition:transform .3s var(–ease);
+}
+.report-book:hover{transform:translateY(-6px) rotate(-1deg)}
+.report-book-inner{color:#fff}
+.report-book-title{font-size:22px;font-weight:400;font-style:italic}
+.report-book-year{font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.65;margin-top:4px}
+
+/* ══════════════════════════════════════════
+ESCRITÓRIOS
+══════════════════════════════════════════ */
+.offices-grid{
+display:grid;grid-template-columns:repeat(5,1fr);
+gap:2px;margin-top:40px;
+}
+.off-card{
+background:var(–gray);padding:24px 20px;
+border-bottom:3px solid transparent;
+transition:border-color .2s,transform .25s,background .2s;
+cursor:pointer;
+}
+.off-card:hover{border-bottom-color:var(–or);transform:translateY(-4px);background:#eceae6}
+.off-city{
+font-size:20px;font-weight:400;color:#1a1a1a;
+text-transform:uppercase;letter-spacing:.2px;margin-bottom:4px;
+}
+.off-country{
+font-size:10px;font-weight:700;letter-spacing:.12em;
+text-transform:uppercase;color:var(–or);margin-bottom:12px;
+}
+.off-addr{font-size:12px;font-weight:400;color:var(–txt);line-height:1.7}
+
+/* ══════════════════════════════════════════
+FOOTER
+══════════════════════════════════════════ */
+footer{background-color:#0e0e0e;color:rgba(255,255,255,.5);padding:64px 0 0}
+.footer-grid{
+display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;
+gap:48px;padding-bottom:48px;
+border-bottom:1px solid rgba(255,255,255,.07);
+}
+.ft-logo{
+font-size:18px;font-weight:400;letter-spacing:3px;
+color:var(–or);text-transform:uppercase;margin-bottom:16px;
+}
+.ft-about{
+font-size:13px;font-weight:400;line-height:1.8;
+max-width:280px;margin-bottom:24px;
+}
+.ft-social{display:flex;gap:10px}
+.ft-social a{
+width:36px;height:36px;
+background:rgba(255,255,255,.07);
+display:flex;align-items:center;justify-content:center;
+font-size:11px;font-weight:700;
+color:rgba(255,255,255,.5);
+transition:background .2s,color .2s;
+}
+.ft-social a:hover{background:var(–or);color:#fff}
+.ft-col h4{
+font-size:10px;font-weight:700;letter-spacing:.14em;
+text-transform:uppercase;color:#fff;margin-bottom:18px;
+}
+.ft-col ul{list-style:none}
+.ft-col ul li{margin-bottom:10px}
+.ft-col ul li a{
+font-size:13px;font-weight:400;
+color:rgba(255,255,255,.45);
+transition:color .2s,padding-left .2s;display:block;
+}
+.ft-col ul li a:hover{color:var(–or);padding-left:4px}
+.ft-bottom{
+display:flex;align-items:center;justify-content:space-between;
+flex-wrap:wrap;gap:12px;
+padding:20px 0;
+font-size:11px;color:rgba(255,255,255,.25);
+}
+.ft-bottom a{color:rgba(255,255,255,.3);transition:color .2s}
+.ft-bottom a:hover{color:var(–or)}
+.ft-bottom-links{display:flex;gap:20px;flex-wrap:wrap}
+
+/* ══════════════════════════════════════════
+BACK TO TOP
+══════════════════════════════════════════ */
+.back-top{
+position:fixed;bottom:28px;right:28px;
+width:46px;height:46px;
+background:var(–or);border:none;color:#fff;
+font-size:18px;
+display:flex;align-items:center;justify-content:center;
+opacity:0;pointer-events:none;
+transition:opacity .3s,transform .3s;
+z-index:400;
+clip-path:polygon(0 8px,8px 0,100% 0,100% 100%,0 100%);
+}
+.back-top.show{opacity:1;pointer-events:all}
+.back-top:hover{transform:translateY(-5px)}
+
+/* ══════════════════════════════════════════
+TOAST NOTIFICATION
+══════════════════════════════════════════ */
+.toast{
+position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(60px);
+background:#1a1a1a;color:#fff;
+padding:12px 24px;font-size:13px;font-weight:500;
+border-left:3px solid var(–or);
+opacity:0;transition:all .3s var(–ease);
+z-index:600;white-space:nowrap;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ══════════════════════════════════════════
+RESPONSIVE BREAKPOINTS
+══════════════════════════════════════════ */
+@media(min-width:900px){
+.nav-menu-txt{display:block}
+.nav-searchbar{display:flex}
+.nav-lang-btn{display:flex}
+.mobile-only{display:none!important}
+}
+@media(max-width:1200px){
+.hl-grid{grid-template-columns:repeat(2,1fr)}
+.pub-grid{grid-template-columns:repeat(2,1fr)}
+.prof-grid{grid-template-columns:repeat(3,1fr)}
+.offices-grid{grid-template-columns:repeat(3,1fr)}
+.footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:899px){
+:root{–nav-h:58px}
+.hero{flex-direction:column;min-height:auto}
+.hero-photo{flex:none;height:55vw;min-height:240px}
+.hero-news{min-height:280px}
+.hero-tagline h1{font-size:clamp(18px,5vw,26px)}
+.hero-tri{border-width:0 80px 160px 0}
+.essencia-grid{grid-template-columns:1fr}
+.essencia-card{border-right:none;border-bottom:1px solid var(–mid)}
+.essencia-card:last-child{border-bottom:none}
+.areas-list .area-row{padding:16px 0}
+.hl-grid{grid-template-columns:1fr}
+.prof-grid{grid-template-columns:1fr 1fr}
+.pub-grid{grid-template-columns:1fr}
+.report-inner{grid-template-columns:1fr}
+.report-book{display:none}
+.offices-grid{grid-template-columns:1fr 1fr}
+.footer-grid{grid-template-columns:1fr;gap:28px}
+.ft-bottom{flex-direction:column;text-align:center}
+.nl-form{width:100%}
+.nl-input{flex:1;min-width:0}
+.nl-bar{flex-direction:column;align-items:flex-start}
+.back-top{bottom:20px;right:16px}
+}
+@media(max-width:560px){
+.offices-grid{grid-template-columns:1fr}
+.prof-grid{grid-template-columns:1fr 1fr}
+.hl-grid{grid-template-columns:1fr}
+}
+</style>
+
+</head>
+<body>
+
+<!-- ══ PAGE LOADER ══ -->
+
+<div id="loader"><div class="loader-logo">Prometeus</div></div>
+
+<!-- ══ TOAST ══ -->
+
+<div class="toast" id="toast"></div>
+
+<!-- ══ SEARCH OVERLAY ══ -->
+
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Buscar">
+  <button class="search-overlay-close" id="searchClose" aria-label="Fechar busca">&#10005;</button>
+  <div class="search-overlay-title">O que você está buscando?</div>
+  <form class="search-overlay-form" id="searchForm" onsubmit="return handleSearch(event)">
+    <input class="search-overlay-input" id="searchInput" type="text" placeholder="Ex: proteção de dados, M&A, tributário..." autocomplete="off" aria-label="Campo de busca"/>
+    <button class="search-overlay-btn" type="submit" aria-label="Buscar">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+  </form>
+  <div class="search-suggestions">
+    <div class="search-sug-label">Sugestões</div>
+    <span class="search-sug-pill" onclick="fillSearch('Proteção de Dados')">Proteção de Dados</span>
+    <span class="search-sug-pill" onclick="fillSearch('Fusões e Aquisições')">Fusões e Aquisições</span>
+    <span class="search-sug-pill" onclick="fillSearch('Tributário')">Tributário</span>
+    <span class="search-sug-pill" onclick="fillSearch('Infraestrutura')">Infraestrutura</span>
+    <span class="search-sug-pill" onclick="fillSearch('Mercado de Capitais')">Mercado de Capitais</span>
+    <span class="search-sug-pill" onclick="fillSearch('Antitruste')">Antitruste</span>
+  </div>
+</div>
+
+<!-- ══ LANGUAGE DROPDOWN (desktop) ══ -->
+
+<div class="lang-dropdown" id="langDropdown">
+  <div class="lang-item active" onclick="setLang('PT','Português')"><span class="lang-flag">🇧🇷</span> Português</div>
+  <div class="lang-item" onclick="setLang('EN','English')"><span class="lang-flag">🇺🇸</span> English</div>
+  <div class="lang-item" onclick="setLang('ES','Español')"><span class="lang-flag">🇪🇸</span> Español</div>
+</div>
+
+<!-- ══ MENU OVERLAY ══ -->
+
+<div class="menu-overlay" id="menuOverlay" role="dialog" aria-label="Menu de navegação">
+  <div class="menu-head">
+    <span class="menu-head-logo">Prometeus</span>
+    <button class="menu-close-btn" id="menuClose" aria-label="Fechar menu">&#10005;</button>
+  </div>
+  <div class="menu-body">
+    <nav class="menu-nav">
+      <ul>
+        <li><a href="#essencia">Nossa Essência <span class="arr">&#8250;</span></a></li>
+        <li><a href="#areas">Áreas de Atuação <span class="arr">&#8250;</span></a></li>
+        <li><a href="#profissionais">Profissionais <span class="arr">&#8250;</span></a></li>
+        <li><a href="#escritorios">Escritórios <span class="arr">&#8250;</span></a></li>
+        <li><a href="#publicacoes">Publicações <span class="arr">&#8250;</span></a></li>
+        <li><a href="#">Único <span class="arr">&#8250;</span></a></li>
+        <li><a href="#">Carreiras <span class="arr">&#8250;</span></a></li>
+        <li><a href="#">Contato <span class="arr">&#8250;</span></a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="menu-foot">
+    <div class="menu-langs">
+      <button class="menu-lang-btn active" onclick="setLang('PT','Português')">PT</button>
+      <button class="menu-lang-btn" onclick="setLang('EN','English')">EN</button>
+      <button class="menu-lang-btn" onclick="setLang('ES','Español')">ES</button>
+    </div>
+    <div class="menu-social">
+      <a href="#" title="LinkedIn">in</a>
+      <a href="#" title="Instagram">ig</a>
+      <a href="#" title="Twitter">tw</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <span class="nav-menu-txt">MENU</span>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+```
+<div class="nav-logo">PROMETEUS</div>
+
+<div class="nav-searchbar" id="desktopSearchbar">
+  <input type="text" id="desktopSearchInput" placeholder="Buscar..." aria-label="Buscar"/>
+  <button onclick="triggerDesktopSearch()" type="button">Pesquisar</button>
+</div>
+
+<div class="nav-right">
+  <!-- mobile: search icon -->
+  <button class="nav-icon mobile-only" id="searchBtnMobile" aria-label="Buscar">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+  </button>
+  <!-- desktop: search icon (opens overlay) -->
+  <button class="nav-icon" id="searchBtnDesktop" aria-label="Buscar" style="display:none">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+  </button>
+  <!-- lang wrap -->
+  <div class="nav-lang-wrap">
+    <button class="nav-lang-btn" id="langBtn" aria-label="Selecionar idioma" aria-expanded="false">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span id="langLabel">IDIOMA &nbsp; PORTUGUÊS</span>
+      <span class="chevron">&#8964;</span>
+    </button>
+  </div>
+  <!-- mobile lang -->
+  <button class="nav-icon mobile-only" id="langBtnMobile" aria-label="Idioma">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+  </button>
+</div>
+```
+
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+
+<section class="hero">
+  <!-- photo -->
+  <div class="hero-photo">
+    <div class="hero-circle"><div class="hero-circle-inner"></div></div>
+    <div class="hero-tri"></div>
+    <button class="hero-sound" id="heroSound" aria-label="Ativar/desativar som">
+      <svg id="soundIcon" width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="white"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="hero-tagline">
+      <h1>Transformamos desafios jurídicos em oportunidades</h1>
+    </div>
+  </div>
+  <!-- news slider -->
+  <div class="hero-news">
+    <div class="hero-slides" id="heroSlides">
+      <div class="hero-slide active">
+        <div class="slide-lbl">Notícias e Negócios</div>
+        <h2 class="slide-title">Governo publica Medida Provisória com novo regime sancionador para descumprimento da Lei do Frete Mínimo</h2>
+        <p class="slide-desc">Nova norma reforça a fiscalização do piso mínimo do frete e prevê penas a transportadores e contratantes do transporte de cargas</p>
+        <div class="slide-tags"><span class="slide-tags-lbl">Assuntos:</span><span class="pill">Infraestrutura e Energia</span></div>
+      </div>
+      <div class="hero-slide">
+        <div class="slide-lbl">Notícias e Negócios</div>
+        <h2 class="slide-title">Recife publica edital de concessão para habitações de interesse social</h2>
+        <p class="slide-desc">Concessão Patrocinada prevê implantação de unidades habitacionais, serviços de locação e gestão condominial na cidade</p>
+        <div class="slide-tags"><span class="slide-tags-lbl">Assuntos:</span><span class="pill">Infraestrutura</span><span class="pill">Concessões</span></div>
+      </div>
+      <div class="hero-slide">
+        <div class="slide-lbl">Publicações</div>
+        <h2 class="slide-title">ANPD publica novas regras para declaração do Imposto de Renda de 2026</h2>
+        <p class="slide-desc">Regulação abrange o período entre 17 de março e 29 de maio, com novos campos de preenchimento obrigatório para contribuintes</p>
+        <div class="slide-tags"><span class="slide-tags-lbl">Assuntos:</span><span class="pill">Família e Sucessões</span></div>
+      </div>
+      <div class="hero-slide">
+        <div class="slide-lbl">Mercado de Capitais</div>
+        <h2 class="slide-title">CVM atualiza normas para fundos de investimento em participações e crédito privado</h2>
+        <p class="slide-desc">Resolução altera regras de diversificação, limites de concentração e obrigações de transparência para gestores de recursos</p>
+        <div class="slide-tags"><span class="slide-tags-lbl">Assuntos:</span><span class="pill">Mercado de Capitais</span></div>
+      </div>
+    </div>
+    <div class="hero-dots-row">
+      <div class="dots" id="heroDots">
+        <div class="dot active" data-i="0"></div>
+        <div class="dot" data-i="1"></div>
+        <div class="dot" data-i="2"></div>
+        <div class="dot" data-i="3"></div>
+      </div>
+      <div class="unico">
+        <span class="unico-logo">único</span>
+        <span class="unico-txt">O portal de notícias do Prometeus</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER BAR ══ -->
+
+<div class="nl-bar reveal">
+  <div class="nl-text">
+    <h3>Newsletter</h3>
+    <p>Receba notícias e nossas análises jurídicas</p>
+  </div>
+  <form class="nl-form" onsubmit="return handleNewsletter(event)">
+    <input class="nl-input" type="email" placeholder="seu@email.com" aria-label="E-mail para newsletter"/>
+    <button class="nl-btn" type="submit">Cadastre-se</button>
+  </form>
+</div>
+
+<!-- ══ NOSSA ESSÊNCIA ══ -->
+
+<section class="sec essencia-sec" id="essencia">
+  <div class="wrap">
+    <div class="essencia-grid">
+      <div class="essencia-card reveal">
+        <div class="essencia-head">Nossa essência <span class="arr">&#8250;</span></div>
+        <p class="essencia-body">Somos um escritório de alta performance jurídica que transforma desafios em oportunidades, sendo o parceiro estratégico ideal para negócios de qualquer porte.</p>
+      </div>
+      <div class="essencia-card reveal" style="transition-delay:.1s">
+        <div class="essencia-head">Fale conosco <span class="arr">&#8250;</span></div>
+        <p class="essencia-body">Antecipamos tendências e oferecemos soluções jurídicas inovadoras, prezando pela excelência e eficiência no atendimento e relacionamento com nossos clientes.</p>
+      </div>
+      <div class="essencia-card reveal" style="transition-delay:.2s">
+        <div class="essencia-head">Responsabilidade social <span class="arr">&#8250;</span></div>
+        <p class="essencia-body">Buscamos contribuir para a construção de uma sociedade mais justa e igualitária. Conheça nossas iniciativas de impacto social e ambiental.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ÁREAS DE ATUAÇÃO ══ -->
+
+<section class="sec" id="areas">
+  <div class="wrap">
+    <div class="reveal">
+      <h2 class="areas-title">Áreas de atuação</h2>
+      <p class="areas-intro">Com uma <strong>estrutura <em>full-service</em> de excelência</strong>, oferecemos serviços jurídicos personalizados, atendendo a todo tipo de desafio do mercado nacional e internacional.</p>
+    </div>
+    <div class="areas-list reveal" style="transition-delay:.1s">
+      <div class="area-row"><span class="area-name">Mercado de Capitais</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Fusões e Aquisições</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Direito Tributário</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Proteção de Dados e Privacidade</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Infraestrutura e Energia</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Antitruste e Concorrência</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Direito Trabalhista</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Venture Capital e Startups</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">White Collar Crime</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Direito Bancário e Financeiro</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Família e Sucessões</span><span class="area-arr">&#8250;</span></div>
+      <div class="area-row"><span class="area-name">Imobiliário e Urbanismo</span><span class="area-arr">&#8250;</span></div>
+    </div>
+    <div style="margin-top:32px" class="reveal" style="transition-delay:.2s">
+      <a class="btn-more" href="#">Ver todas as 40+ áreas &#8250;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DESTAQUES ══ -->
+
+<section class="sec hl-sec">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-lbl">Destaques</div>
+      <h2 class="sec-title" style="color:#fff">Reconhecimento <em>Internacional</em></h2>
+    </div>
+    <div class="hl-grid">
+      <div class="hl-card reveal">
+        <div class="hl-tag">Relatório Integrado</div>
+        <div class="hl-title">Pulso — 2ª edição: transparência e impacto em 2025</div>
+        <p class="hl-body">Reafirmamos nosso compromisso com a transparência junto a clientes, parceiros e à sociedade civil.</p>
+        <a class="hl-link" href="#">Acessar relatório &#8250;</a>
+      </div>
+      <div class="hl-card reveal" style="transition-delay:.1s">
+        <div class="hl-tag">Reconhecimento</div>
+        <div class="hl-title">Chambers Latin America: presença de elite em 2025</div>
+        <p class="hl-body">Mantemos posição entre os escritórios mais reconhecidos da América Latina em rankings internacionais.</p>
+        <a class="hl-link" href="#">Saiba mais &#8250;</a>
+      </div>
+      <div class="hl-card reveal" style="transition-delay:.2s">
+        <div class="hl-tag">30 Anos</div>
+        <div class="hl-title">Nova identidade visual: tradição e futuro em uma marca única</div>
+        <p class="hl-body">A renovação reflete nossa evolução, mantendo a paleta de laranja e roxo como marca registrada.</p>
+        <a class="hl-link" href="#">Ver mais &#8250;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROFISSIONAIS ══ -->
+
+<section class="sec" id="profissionais">
+  <div class="wrap">
+    <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:0">
+      <div>
+        <div class="sec-lbl">Time</div>
+        <h2 class="sec-title">Nossos <em>Profissionais</em></h2>
+      </div>
+      <a class="btn-more" href="#" style="margin-bottom:14px">Ver todos &#8250;</a>
+    </div>
+    <div class="prof-grid">
+      <div class="prof-card reveal">
+        <div class="prof-bg"><span class="prof-ini">RS</span></div>
+        <div class="prof-info"><div class="prof-name">Ricardo Simões</div><div class="prof-role">Sócio · M&amp;A</div></div>
+        <div class="prof-hover"><div class="ph-area">Fusões &amp; Aquisições</div><div class="ph-name">Ricardo Simões</div><a class="ph-btn" href="#">Ver perfil</a></div>
+      </div>
+      <div class="prof-card reveal" style="transition-delay:.08s">
+        <div class="prof-bg"><span class="prof-ini">AM</span></div>
+        <div class="prof-info"><div class="prof-name">Ana Meireles</div><div class="prof-role">Sócia · Cap. Markets</div></div>
+        <div class="prof-hover"><div class="ph-area">Mercado de Capitais</div><div class="ph-name">Ana Meireles</div><a class="ph-btn" href="#">Ver perfil</a></div>
+      </div>
+      <div class="prof-card reveal" style="transition-delay:.16s">
+        <div class="prof-bg"><span class="prof-ini">PB</span></div>
+        <div class="prof-info"><div class="prof-name">Pedro Barreto</div><div class="prof-role">Sócio · Tributário</div></div>
+        <div class="prof-hover"><div class="ph-area">Direito Tributário</div><div class="ph-name">Pedro Barreto</div><a class="ph-btn" href="#">Ver perfil</a></div>
+      </div>
+      <div class="prof-card reveal" style="transition-delay:.24s">
+        <div class="prof-bg"><span class="prof-ini">LC</span></div>
+        <div class="prof-info"><div class="prof-name">Luísa Campos</div><div class="prof-role">Sócia · LGPD</div></div>
+        <div class="prof-hover"><div class="ph-area">Proteção de Dados</div><div class="ph-name">Luísa Campos</div><a class="ph-btn" href="#">Ver perfil</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PUBLICAÇÕES ══ -->
+
+<section class="sec pub-sec" id="publicacoes">
+  <div class="wrap">
+    <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px">
+      <div>
+        <div class="sec-lbl">Publicações</div>
+        <h2 class="sec-title">Insights &amp; <em>Artigos</em></h2>
+      </div>
+      <a class="btn-more" href="#" style="margin-bottom:14px">Ver todos &#8250;</a>
+    </div>
+    <div class="pub-grid">
+      <div class="pub-card reveal">
+        <div class="pub-cat">Regulação</div>
+        <div class="pub-date">Mar 2025</div>
+        <div class="pub-title">Regulação das apostas esportivas no Brasil: o que mudou e o que está por vir</div>
+        <div class="pub-tags"><span class="pill">Infraestrutura</span><span class="pill">Regulação</span></div>
+      </div>
+      <div class="pub-card reveal" style="transition-delay:.1s">
+        <div class="pub-cat">Proteção de Dados</div>
+        <div class="pub-date">Fev 2025</div>
+        <div class="pub-title">ANPD em 2024: principais entendimentos e perspectivas para 2025</div>
+        <div class="pub-tags"><span class="pill">LGPD</span><span class="pill">ANPD</span></div>
+      </div>
+      <div class="pub-card reveal" style="transition-delay:.2s">
+        <div class="pub-cat">Tributário</div>
+        <div class="pub-date">Jan 2025</div>
+        <div class="pub-title">Reforma tributária: impactos para fundos de investimento e o mercado financeiro</div>
+        <div class="pub-tags"><span class="pill">Tributário</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RELATÓRIO BANNER ══ -->
+
+<section class="sec report-sec">
+  <div class="wrap">
+    <div class="report-inner">
+      <div class="reveal">
+        <div class="report-lbl">Publicação em Destaque</div>
+        <div class="report-title">Pulso 2025</div>
+        <p class="report-body">A segunda edição do nosso relatório integrado reafirma o compromisso com a transparência e traz análises e perspectivas estratégicas para 2025.</p>
+        <a class="btn-white" href="#">Acessar relatório</a>
+      </div>
+      <div class="report-book reveal" style="transition-delay:.15s">
+        <div class="report-book-inner">
+          <div class="report-book-title">Pulso</div>
+          <div class="report-book-year">2ª Edição · 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ESCRITÓRIOS ══ -->
+
+<section class="sec" id="escritorios">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-lbl">Presença Global</div>
+      <h2 class="sec-title">Nossos <em>Escritórios</em></h2>
+    </div>
+    <div class="offices-grid">
+      <div class="off-card reveal"><div class="off-city">São Paulo</div><div class="off-country">Brasil — Sede</div><div class="off-addr">Av. Brigadeiro Faria Lima, 4100<br>6º andar — Itaim Bibi<br>SP 04538-132</div></div>
+      <div class="off-card reveal" style="transition-delay:.07s"><div class="off-city">Rio de Janeiro</div><div class="off-country">Brasil</div><div class="off-addr">Praia de Botafogo, 228<br>Torre B, 10º andar<br>RJ 22250-145</div></div>
+      <div class="off-card reveal" style="transition-delay:.14s"><div class="off-city">Brasília</div><div class="off-country">Brasil</div><div class="off-addr">SCS Q. 09 Lote C<br>Bloco B — Sala 1205<br>Ed. Parque Cidade, DF</div></div>
+      <div class="off-card reveal" style="transition-delay:.21s"><div class="off-city">New York</div><div class="off-country">Estados Unidos</div><div class="off-addr">1114 Avenue of the Americas<br>Suite 2000<br>NY 10036</div></div>
+      <div class="off-card reveal" style="transition-delay:.28s"><div class="off-city">London</div><div class="off-country">Reino Unido</div><div class="off-addr">One Canada Square<br>Level 32, Canary Wharf<br>E14 5AB</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="ft-brand">
+        <div class="ft-logo">Prometeus</div>
+        <p class="ft-about">Escritório de advocacia empresarial com 30 anos de atuação no Brasil e presença internacional em Nova York e Londres.</p>
+        <div class="ft-social">
+          <a href="#" title="LinkedIn">in</a>
+          <a href="#" title="Twitter">tw</a>
+          <a href="#" title="Instagram">ig</a>
+          <a href="#" title="YouTube">yt</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Escritório</h4>
+        <ul>
+          <li><a href="#">Nossa Essência</a></li>
+          <li><a href="#">30 Anos</a></li>
+          <li><a href="#">Impacto Social</a></li>
+          <li><a href="#">Reconhecimentos</a></li>
+          <li><a href="#">Carreiras</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Áreas de Atuação</h4>
+        <ul>
+          <li><a href="#">M&amp;A</a></li>
+          <li><a href="#">Mercado de Capitais</a></li>
+          <li><a href="#">Tributário</a></li>
+          <li><a href="#">Proteção de Dados</a></li>
+          <li><a href="#">Ver Todas</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Escritórios</h4>
+        <ul>
+          <li><a href="#">São Paulo</a></li>
+          <li><a href="#">Rio de Janeiro</a></li>
+          <li><a href="#">Brasília</a></li>
+          <li><a href="#">New York</a></li>
+          <li><a href="#">London</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span>© 2025 Prometeus Advogados. Todos os direitos reservados.</span>
+      <div class="ft-bottom-links">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+        <a href="#">Aviso de Segurança</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ TTS TAB (aba lateral) ══ -->
+
+<button class="tts-tab" id="ttsTab" aria-label="Acessibilidade de voz">VOZ</button>
+
+<!-- ══ TTS PANEL ══ -->
+
+<div class="tts-panel" id="ttsPanel" role="complementary" aria-label="Painel de acessibilidade de voz">
+  <div class="tts-head">
+    <div class="tts-head-title"><span class="tts-dot"></span>Modo Auditivo</div>
+    <button class="tts-close-btn" id="ttsPanelClose" aria-label="Fechar painel">&#10005;</button>
+  </div>
+  <div class="tts-body">
+    <div class="tts-row">
+      <div class="tts-lbl">Voz <em id="ttsVoiceLabel">—</em></div>
+      <select class="tts-select" id="ttsVoiceSelect" aria-label="Selecionar voz"></select>
+    </div>
+    <div class="tts-row">
+      <div class="tts-lbl">Velocidade <em id="ttsRateVal">1.0×</em></div>
+      <input class="tts-range" type="range" id="ttsRate" min="0.5" max="2" step="0.1" value="1" aria-label="Velocidade da fala"/>
+    </div>
+    <div class="tts-row">
+      <div class="tts-lbl">Tom <em id="ttsPitchVal">1.0</em></div>
+      <input class="tts-range" type="range" id="ttsPitch" min="0.5" max="2" step="0.1" value="1" aria-label="Tom da voz"/>
+    </div>
+    <div class="tts-row">
+      <div class="tts-lbl">Idioma da voz</div>
+      <select class="tts-select" id="ttsLangSelect" aria-label="Idioma da voz">
+        <option value="pt-BR">Português (BR)</option>
+        <option value="pt-PT">Português (PT)</option>
+        <option value="en-US">English (US)</option>
+        <option value="en-GB">English (GB)</option>
+        <option value="es-ES">Español</option>
+      </select>
+    </div>
+    <div class="tts-status" id="ttsStatus">Clique em qualquer texto da página para ouvi-lo.</div>
+    <div class="tts-btns">
+      <button class="tts-action" id="ttsTestBtn">Testar voz</button>
+      <button class="tts-action danger" id="ttsStopBtn">Parar</button>
+    </div>
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+
+<button class="back-top" id="backTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ── Loader ── */
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      document.getElementById('loader').classList.add('done');
+    }, 800);
+  });
+
+  /* ── Toast ── */
+  function showToast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 3000);
+  }
+
+  /* ── Scroll: navbar shadow + back-to-top ── */
+  var navbar = document.getElementById('navbar');
+  var backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', function(){
+    navbar.classList[window.scrollY > 10 ? 'add' : 'remove']('scrolled');
+    backTop.classList[window.scrollY > 400 ? 'add' : 'remove']('show');
+  }, {passive:true});
+
+  /* ── Scroll reveal ── */
+  var revealEls = document.querySelectorAll('.reveal, .reveal-left');
+  var revealObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); }
+    });
+  },{threshold:0.1});
+  revealEls.forEach(function(el){ revealObs.observe(el); });
+
+  /* ── Menu overlay ── */
+  var hamburger = document.getElementById('hamburger');
+  var menuOverlay = document.getElementById('menuOverlay');
+  var menuClose = document.getElementById('menuClose');
+  var menuOpen = false;
+
+  function openMenu(){
+    menuOpen = true;
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded','true');
+    menuOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenuFn(){
+    menuOpen = false;
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded','false');
+    menuOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', function(){ menuOpen ? closeMenuFn() : openMenu(); });
+  menuClose.addEventListener('click', closeMenuFn);
+
+  /* close menu on nav link click */
+  menuOverlay.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenuFn);
+  });
+
+  /* ── Search overlay ── */
+  var searchOverlay = document.getElementById('searchOverlay');
+  var searchInput = document.getElementById('searchInput');
+  var searchBtnMobile = document.getElementById('searchBtnMobile');
+  var searchBtnDesktop = document.getElementById('searchBtnDesktop');
+  var searchClose = document.getElementById('searchClose');
+
+  function openSearch(){
+    searchOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ searchInput.focus(); }, 200);
+  }
+  function closeSearch(){
+    searchOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  searchBtnMobile.addEventListener('click', openSearch);
+  searchBtnDesktop.addEventListener('click', openSearch);
+  searchClose.addEventListener('click', closeSearch);
+  searchOverlay.addEventListener('click', function(e){
+    if(e.target === searchOverlay) closeSearch();
+  });
+
+  /* ESC key */
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(searchOverlay.classList.contains('open')) closeSearch();
+      if(menuOpen) closeMenuFn();
+      if(document.getElementById('langDropdown').classList.contains('open')) closeLang();
+    }
+  });
+
+  window.handleSearch = function(e){
+    e.preventDefault();
+    var q = searchInput.value.trim();
+    if(!q) return false;
+    closeSearch();
+    showToast('Buscando: "' + q + '"');
+    return false;
+  };
+
+  window.fillSearch = function(term){
+    searchInput.value = term;
+    searchInput.focus();
+  };
+
+  /* desktop searchbar */
+  window.triggerDesktopSearch = function(){
+    var q = document.getElementById('desktopSearchInput').value.trim();
+    if(!q){ openSearch(); return; }
+    showToast('Buscando: "' + q + '"');
+  };
+  document.getElementById('desktopSearchInput').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') triggerDesktopSearch();
+  });
+
+  /* ── Language dropdown ── */
+  var langBtn = document.getElementById('langBtn');
+  var langBtnMobile = document.getElementById('langBtnMobile');
+  var langDropdown = document.getElementById('langDropdown');
+  var langLabel = document.getElementById('langLabel');
+  var langOpen = false;
+
+  function openLang(){
+    langOpen = true;
+    langDropdown.classList.add('open');
+    langBtn.classList.add('open');
+    langBtn.setAttribute('aria-expanded','true');
+    /* position dropdown under the button */
+    var rect = langBtn.getBoundingClientRect();
+    langDropdown.style.top = (rect.bottom + 8) + 'px';
+    langDropdown.style.right = (window.innerWidth - rect.right) + 'px';
+    langDropdown.style.left = 'auto';
+  }
+  function closeLang(){
+    langOpen = false;
+    langDropdown.classList.remove('open');
+    langBtn.classList.remove('open');
+    langBtn.setAttribute('aria-expanded','false');
+  }
+  langBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    langOpen ? closeLang() : openLang();
+  });
+  langBtnMobile.addEventListener('click', function(){
+    /* on mobile open the menu overlay and scroll to lang buttons */
+    openMenu();
+    setTimeout(function(){
+      var el = menuOverlay.querySelector('.menu-foot');
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }, 400);
+  });
+  document.addEventListener('click', function(e){
+    if(langOpen && !langDropdown.contains(e.target) && e.target !== langBtn){ closeLang(); }
+  });
+
+  window.setLang = function(code, label){
+    /* update desktop label */
+    langLabel.textContent = 'IDIOMA \u00a0 ' + label.toUpperCase();
+    /* update active state */
+    document.querySelectorAll('.lang-item').forEach(function(el){
+      el.classList[el.textContent.trim().indexOf(label) !== -1 ? 'add' : 'remove']('active');
+    });
+    document.querySelectorAll('.menu-lang-btn').forEach(function(btn){
+      btn.classList[btn.textContent.trim() === code ? 'add' : 'remove']('active');
+    });
+    closeLang();
+    showToast('Idioma alterado para ' + label);
+  };
+
+  /* ── Newsletter ── */
+  window.handleNewsletter = function(e){
+    e.preventDefault();
+    var input = e.target.querySelector('input');
+    if(!input.value){ return false; }
+    showToast('Cadastro realizado com sucesso!');
+    input.value = '';
+    return false;
+  };
+
+  /* ── Hero carousel ── */
+  var slides = document.querySelectorAll('.hero-slide');
+  var dots = document.querySelectorAll('#heroDots .dot');
+  var cur = 0;
+  var autoT = null;
+  var DURATION = 5000;
+
+  function goTo(n){
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = ((n % slides.length) + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  function startAuto(){ autoT = setInterval(function(){ goTo(cur+1); }, DURATION); }
+  function resetAuto(){ clearInterval(autoT); startAuto(); }
+
+  dots.forEach(function(dot, i){
+    dot.addEventListener('click', function(){ goTo(i); resetAuto(); });
+  });
+
+  /* touch/swipe */
+  var sx = 0;
+  var heroSlides = document.getElementById('heroSlides');
+  heroSlides.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+  heroSlides.addEventListener('touchend', function(e){
+    var dx = sx - e.changedTouches[0].clientX;
+    if(Math.abs(dx) > 40){ goTo(dx > 0 ? cur+1 : cur-1); resetAuto(); }
+  }, {passive:true});
+
+  startAuto();
+
+  /* ══════════════════════════════════════════
+     TRADUÇÃO REAL DE IDIOMA
+  ══════════════════════════════════════════ */
+  var translations = {
+    'pt': {
+      lang:'pt-BR',
+      nav:['Nossa Essência','Áreas de Atuação','Profissionais','Escritórios','Publicações','Único','Carreiras','Contato'],
+      heroTitle:'Transformamos desafios jurídicos em oportunidades',
+      nlTitle:'Newsletter', nlDesc:'Receba notícias e nossas análises jurídicas', nlBtn:'Cadastre-se',
+      ess:['Nossa essência','Fale conosco','Responsabilidade social'],
+      essBody:['Somos um escritório de alta performance jurídica que transforma desafios em oportunidades, sendo o parceiro estratégico ideal para negócios de qualquer porte.',
+               'Antecipamos tendências e oferecemos soluções jurídicas inovadoras, prezando pela excelência e eficiência no atendimento e relacionamento com nossos clientes.',
+               'Buscamos contribuir para a construção de uma sociedade mais justa e igualitária. Conheça nossas iniciativas de impacto social e ambiental.'],
+      areasTitle:'Áreas de atuação',
+      areasIntro:'Com uma estrutura full-service de excelência, oferecemos serviços jurídicos personalizados, atendendo a todo tipo de desafio do mercado nacional e internacional.',
+      profTitle:'Nossos Profissionais', pubTitle:'Insights & Artigos',
+      reportTitle:'Pulso 2025', reportBody:'A segunda edição do nosso relatório integrado reafirma o compromisso com a transparência e traz análises e perspectivas estratégicas para 2025.',
+      reportBtn:'Acessar relatório', footAbout:'Escritório de advocacia empresarial com 30 anos de atuação no Brasil e presença internacional em Nova York e Londres.',
+      toastLang:'Idioma: Português', searchPlaceholder:'Ex: proteção de dados, M&A, tributário...'
+    },
+    'en': {
+      lang:'en-US',
+      nav:['Our Essence','Practice Areas','Professionals','Offices','Publications','Único','Careers','Contact'],
+      heroTitle:'We transform legal challenges into opportunities',
+      nlTitle:'Newsletter', nlDesc:'Receive news and our legal analyses', nlBtn:'Subscribe',
+      ess:['Our essence','Contact us','Social responsibility'],
+      essBody:['We are a high-performance law firm that transforms challenges into opportunities, making us the ideal strategic partner for businesses of any size.',
+               'We anticipate trends and offer innovative legal solutions, pursuing excellence and efficiency in serving and relating to our clients.',
+               'We seek to contribute to the construction of a more just and equitable society. Learn about our social and environmental impact initiatives.'],
+      areasTitle:'Practice Areas',
+      areasIntro:'With a full-service structure of excellence, we offer personalized legal services, addressing every type of challenge in the national and international markets.',
+      profTitle:'Our Professionals', pubTitle:'Insights & Articles',
+      reportTitle:'Pulse 2025', reportBody:'The second edition of our integrated report reaffirms our commitment to transparency and brings strategic analyses and perspectives for 2025.',
+      reportBtn:'Access report', footAbout:'Business law firm with 30 years of operations in Brazil and an international presence in New York and London.',
+      toastLang:'Language: English', searchPlaceholder:'e.g. data protection, M&A, tax...'
+    },
+    'es': {
+      lang:'es-ES',
+      nav:['Nuestra esencia','Áreas de práctica','Profesionales','Oficinas','Publicaciones','Único','Carreras','Contacto'],
+      heroTitle:'Transformamos desafíos jurídicos en oportunidades',
+      nlTitle:'Boletín', nlDesc:'Reciba noticias y nuestros análisis jurídicos', nlBtn:'Suscribirse',
+      ess:['Nuestra esencia','Contáctenos','Responsabilidad social'],
+      essBody:['Somos un despacho jurídico de alto rendimiento que transforma desafíos en oportunidades, siendo el socio estratégico ideal para negocios de cualquier tamaño.',
+               'Anticipamos tendencias y ofrecemos soluciones jurídicas innovadoras, buscando la excelencia y eficiencia en el servicio y la relación con nuestros clientes.',
+               'Buscamos contribuir a la construcción de una sociedad más justa e igualitaria. Conozca nuestras iniciativas de impacto social y ambiental.'],
+      areasTitle:'Áreas de práctica',
+      areasIntro:'Con una estructura full-service de excelencia, ofrecemos servicios jurídicos personalizados, atendiendo todo tipo de desafío del mercado nacional e internacional.',
+      profTitle:'Nuestros Profesionales', pubTitle:'Perspectivas & Artículos',
+      reportTitle:'Pulso 2025', reportBody:'La segunda edición de nuestro informe integrado reafirma el compromiso con la transparencia y aporta análisis y perspectivas estratégicas para 2025.',
+      reportBtn:'Acceder al informe', footAbout:'Despacho de abogados empresarial con 30 años de trayectoria en Brasil y presencia internacional en Nueva York y Londres.',
+      toastLang:'Idioma: Español', searchPlaceholder:'Ej: protección de datos, M&A, fiscal...'
+    }
+  };
+
+  var currentLangCode = 'pt';
+
+  function applyTranslation(code){
+    var t = translations[code];
+    if(!t) return;
+    currentLangCode = code;
+
+    /* navbar logo stays PROMETEUS */
+    /* hero title */
+    var heroH1 = document.querySelector('.hero-tagline h1');
+    if(heroH1) heroH1.textContent = t.heroTitle;
+
+    /* menu nav links */
+    var navLinks = document.querySelectorAll('.menu-nav ul li a');
+    navLinks.forEach(function(a,i){
+      var arr = a.querySelector('.arr');
+      a.childNodes[0].textContent = t.nav[i] + ' ';
+      if(!arr){ var s=document.createElement('span');s.className='arr';s.innerHTML='&#8250;';a.appendChild(s); }
+    });
+
+    /* newsletter bar */
+    var nlH3 = document.querySelector('.nl-text h3');
+    var nlP  = document.querySelector('.nl-text p');
+    var nlBtn = document.querySelector('.nl-btn');
+    if(nlH3) nlH3.textContent = t.nlTitle;
+    if(nlP)  nlP.textContent  = t.nlDesc;
+    if(nlBtn) nlBtn.textContent = t.nlBtn;
+
+    /* essencia cards */
+    var essHeads = document.querySelectorAll('.essencia-head');
+    var essBodies = document.querySelectorAll('.essencia-body');
+    essHeads.forEach(function(el,i){
+      if(t.ess[i]){
+        var arr=el.querySelector('.arr');
+        el.childNodes[0].textContent = t.ess[i]+' ';
+        if(!arr){var s=document.createElement('span');s.className='arr';s.innerHTML='&#8250;';el.appendChild(s);}
+      }
+    });
+    essBodies.forEach(function(el,i){ if(t.essBody[i]) el.textContent=t.essBody[i]; });
+
+    /* areas title + intro */
+    var arTit = document.querySelector('.areas-title');
+    var arInt = document.querySelector('.areas-intro');
+    if(arTit) arTit.textContent = t.areasTitle;
+    if(arInt){
+      arInt.innerHTML = t.areasIntro.replace('full-service','<em>full-service</em>');
+    }
+
+    /* section titles with em */
+    var profTit = document.querySelector('#profissionais .sec-title');
+    if(profTit){
+      var parts = t.profTitle.split(' ');
+      profTit.innerHTML = parts.slice(0,-1).join(' ')+' <em>'+parts[parts.length-1]+'</em>';
+    }
+    var pubTit = document.querySelector('#publicacoes .sec-title');
+    if(pubTit){
+      var half = t.pubTitle.split('&');
+      if(half.length===2) pubTit.innerHTML = half[0]+'&amp; <em>'+half[1].trim()+'</em>';
+    }
+
+    /* report section */
+    var repTit = document.querySelector('.report-title');
+    var repBod = document.querySelector('.report-body');
+    var repBtn = document.querySelector('.btn-white');
+    if(repTit) repTit.textContent = t.reportTitle;
+    if(repBod) repBod.textContent = t.reportBody;
+    if(repBtn) repBtn.childNodes[0].textContent = t.reportBtn;
+
+    /* footer about */
+    var ftAbout = document.querySelector('.ft-about');
+    if(ftAbout) ftAbout.textContent = t.footAbout;
+
+    /* search placeholder */
+    var sInput = document.getElementById('searchInput');
+    if(sInput) sInput.placeholder = t.searchPlaceholder;
+
+    /* TTS language select sync */
+    var ttsLangSel = document.getElementById('ttsLangSelect');
+    if(ttsLangSel) ttsLangSel.value = t.lang;
+
+    /* html lang attr */
+    document.documentElement.lang = t.lang;
+  }
+
+  window.setLang = function(code, label){
+    var codeMap = {'Português':'pt','Português (PT)':'pt','English':'en','Español':'es'};
+    var resolvedCode = codeMap[label] || code.toLowerCase();
+    applyTranslation(resolvedCode);
+
+    /* update desktop label */
+    document.getElementById('langLabel').textContent = 'IDIOMA \u00a0 ' + label.toUpperCase();
+
+    /* active states */
+    document.querySelectorAll('.lang-item').forEach(function(el){
+      var txt = el.textContent.trim();
+      el.classList[txt.indexOf(label)!==-1?'add':'remove']('active');
+    });
+    document.querySelectorAll('.menu-lang-btn').forEach(function(btn){
+      btn.classList[btn.textContent.trim()===code?'add':'remove']('active');
+    });
+
+    closeLang();
+    showToast(translations[resolvedCode] ? translations[resolvedCode].toastLang : 'Idioma alterado');
+  };
+
+  /* ══════════════════════════════════════════
+     TTS — WEB SPEECH API
+  ══════════════════════════════════════════ */
+  var ttsPanel   = document.getElementById('ttsPanel');
+  var ttsTab     = document.getElementById('ttsTab');
+  var ttsPanelClose = document.getElementById('ttsPanelClose');
+  var ttsVoiceSel = document.getElementById('ttsVoiceSelect');
+  var ttsLangSel  = document.getElementById('ttsLangSelect');
+  var ttsRateRange = document.getElementById('ttsRate');
+  var ttsPitchRange= document.getElementById('ttsPitch');
+  var ttsRateVal  = document.getElementById('ttsRateVal');
+  var ttsPitchVal = document.getElementById('ttsPitchVal');
+  var ttsStatus   = document.getElementById('ttsStatus');
+  var ttsTestBtn  = document.getElementById('ttsTestBtn');
+  var ttsStopBtn  = document.getElementById('ttsStopBtn');
+  var ttsVoiceLabel= document.getElementById('ttsVoiceLabel');
+
+  var ttsEnabled  = false;
+  var synth       = window.speechSynthesis;
+  var allVoices   = [];
+  var ttsLang     = 'pt-BR';
+  var ttsRate     = 1.0;
+  var ttsPitch    = 1.0;
+  var selectedVoice = null;
+
+  function loadVoices(){
+    allVoices = synth ? synth.getVoices() : [];
+    populateVoiceSelect();
+  }
+  if(synth){ synth.onvoiceschanged = loadVoices; loadVoices(); }
+
+  function populateVoiceSelect(){
+    ttsVoiceSel.innerHTML = '';
+    var lang = ttsLangSel ? ttsLangSel.value : ttsLang;
+    var filtered = allVoices.filter(function(v){ return v.lang.indexOf(lang.split('-')[0])===0; });
+    if(!filtered.length) filtered = allVoices.slice(0,10);
+    filtered.forEach(function(v,i){
+      var opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = v.name + (v.default?' ★':'');
+      ttsVoiceSel.appendChild(opt);
+    });
+    selectedVoice = filtered[0] || null;
+    if(selectedVoice) ttsVoiceLabel.textContent = selectedVoice.name.split(' ')[0];
+  }
+
+  ttsVoiceSel.addEventListener('change', function(){
+    var lang = ttsLangSel.value;
+    var filtered = allVoices.filter(function(v){ return v.lang.indexOf(lang.split('-')[0])===0; });
+    if(!filtered.length) filtered = allVoices.slice(0,10);
+    selectedVoice = filtered[parseInt(ttsVoiceSel.value)] || null;
+    if(selectedVoice) ttsVoiceLabel.textContent = selectedVoice.name.split(' ')[0];
+  });
+
+  ttsLangSel.addEventListener('change', function(){
+    ttsLang = ttsLangSel.value;
+    populateVoiceSelect();
+  });
+
+  ttsRateRange.addEventListener('input', function(){
+    ttsRate = parseFloat(ttsRateRange.value);
+    ttsRateVal.textContent = ttsRate.toFixed(1) + '\u00d7';
+  });
+  ttsPitchRange.addEventListener('input', function(){
+    ttsPitch = parseFloat(ttsPitchRange.value);
+    ttsPitchVal.textContent = ttsPitch.toFixed(1);
+  });
+
+  function speak(text, onEnd){
+    if(!synth || !text) return;
+    synth.cancel();
+    var utt = new SpeechSynthesisUtterance(text);
+    utt.lang = ttsLang;
+    utt.rate = ttsRate;
+    utt.pitch = ttsPitch;
+    if(selectedVoice) utt.voice = selectedVoice;
+    utt.onstart = function(){ ttsStatus.textContent = '\u25B6 ' + text.substring(0,60) + (text.length>60?'\u2026':''); };
+    utt.onend   = function(){ ttsStatus.textContent = 'Clique em qualquer texto da p\u00e1gina para ouvi-lo.'; if(onEnd) onEnd(); };
+    utt.onerror = function(){ ttsStatus.textContent = 'Erro ao sintetizar voz.'; };
+    synth.speak(utt);
+  }
+
+  function openTtsPanel(){
+    ttsPanel.classList.add('open');
+    ttsTab.classList.add('hidden');
+  }
+  function closeTtsPanel(){
+    ttsPanel.classList.remove('open');
+    ttsTab.classList.remove('hidden');
+  }
+
+  /* ── som button: ativa modo auditivo ── */
+  var soundBtn = document.getElementById('heroSound');
+  soundBtn.addEventListener('click', function(){
+    ttsEnabled = !ttsEnabled;
+    document.getElementById('soundIcon').style.opacity = ttsEnabled ? '1' : '.4';
+
+    if(ttsEnabled){
+      openTtsPanel();
+      var welcomeText = {
+        pt:'Modo auditivo ativado. Este recurso melhora a usabilidade para pessoas que preferem navegar pelo site usando áudio. Clique em qualquer texto da página para ouvi-lo.',
+        en:'Audio mode activated. This feature improves usability for people who prefer to navigate the website using audio. Click on any text on the page to hear it.',
+        es:'Modo auditivo activado. Esta función mejora la usabilidad para personas que prefieren navegar por el sitio usando audio. Haz clic en cualquier texto de la página para escucharlo.'
+      };
+      var msg = welcomeText[currentLangCode] || welcomeText.pt;
+      setTimeout(function(){ speak(msg); }, 300);
+    } else {
+      if(synth) synth.cancel();
+      closeTtsPanel();
+      showToast('Modo auditivo desativado');
+    }
+  });
+
+  /* ── tab de abertura ── */
+  ttsTab.addEventListener('click', function(){
+    ttsEnabled = true;
+    document.getElementById('soundIcon').style.opacity = '1';
+    openTtsPanel();
+    speak({
+      pt:'Modo auditivo ativado.',
+      en:'Audio mode activated.',
+      es:'Modo auditivo activado.'
+    }[currentLangCode] || 'Modo auditivo ativado.');
+  });
+
+  ttsPanelClose.addEventListener('click', function(){
+    closeTtsPanel();
+    /* não desativa TTS ao fechar painel, apenas esconde */
+  });
+
+  ttsTestBtn.addEventListener('click', function(){
+    var samples = {
+      pt:'Olá! Esta é a voz configurada para o Prometeus Advogados.',
+      en:'Hello! This is the configured voice for Prometeus Advogados.',
+      es:'¡Hola! Esta es la voz configurada para Prometeus Advogados.'
+    };
+    speak(samples[currentLangCode] || samples.pt);
+  });
+
+  ttsStopBtn.addEventListener('click', function(){
+    if(synth) synth.cancel();
+    ttsStatus.textContent = 'Leitura interrompida.';
+  });
+
+  /* ── click em texto da página para ler ── */
+  var readableSelectors = [
+    '.hero-tagline h1','.slide-title','.slide-desc',
+    '.essencia-head','.essencia-body',
+    '.areas-title','.area-name',
+    '.hl-title','.hl-body',
+    '.prof-name','.prof-role',
+    '.pub-title','.pub-cat',
+    '.off-city','.off-addr',
+    '.report-title','.report-body',
+    '.nl-text h3','.nl-text p',
+    '.ft-about','.sec-title','.sec-desc',
+    '.sec-lbl','.areas-intro'
+  ].join(',');
+
+  document.querySelectorAll(readableSelectors).forEach(function(el){
+    el.style.cursor = 'default';
+    el.addEventListener('click', function(e){
+      if(!ttsEnabled) return;
+      e.stopPropagation();
+      var text = el.innerText || el.textContent;
+      speak(text.trim());
+      /* visual flash */
+      el.style.outline = '2px solid #E8820C';
+      el.style.outlineOffset = '3px';
+      setTimeout(function(){ el.style.outline=''; el.style.outlineOffset=''; }, 1200);
+    });
+  });
+
+  /* ── Smooth anchor scroll for menu links ── */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if(id && id.length > 1){
+        var el = document.querySelector(id);
+        if(el){
+          e.preventDefault();
+          var top = el.getBoundingClientRect().top + window.scrollY - 70;
+          window.scrollTo({top:top, behavior:'smooth'});
+        }
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
